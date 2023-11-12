@@ -20,7 +20,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.unnamed.mobile.component.UploadButton
-import com.unnamed.mobile.ui.theme.ButtonTheme
 import com.unnamed.mobile.ui.theme.UnnamedmobileTheme
 
 class MainActivity : ComponentActivity() {
@@ -41,11 +40,6 @@ fun DefaultPreview() {
 @Composable
 fun MainPage() {
     UnnamedmobileTheme {
-        ButtonTheme {
-            Button(onClick = { /*TODO*/ }) {
-
-            }
-        }
         UploadButton()
 //        Column(modifier = Modifier.fillMaxSize()) {
 //            Greeting("Android")
