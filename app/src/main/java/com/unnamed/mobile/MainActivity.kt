@@ -1,6 +1,7 @@
 package com.unnamed.mobile
 
 import android.os.Bundle
+import android.speech.tts.Voice
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -18,6 +19,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.unnamed.mobile.component.UploadButton
+import com.unnamed.mobile.component.button.BackButton
+import com.unnamed.mobile.component.button.VoiceButton
 import com.unnamed.mobile.ui.theme.UnnamedmobileTheme
 
 class MainActivity : ComponentActivity() {
@@ -29,13 +33,26 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview() {
+    MainPage()
+}
+
 @Composable
 fun MainPage() {
     UnnamedmobileTheme {
         Column(modifier = Modifier.fillMaxSize()) {
-            Greeting("Android")
-            ComposedMap()
+            UploadButton()
+            VoiceButton()
+            BackButton()
         }
+//        Column(modifier = Modifier.fillMaxSize()) {
+//            Greeting("Android")
+//            ComposedMap()
+//
+//            Greeting(name = "Why not?")
+//        }
     }
 }
 
@@ -55,13 +72,6 @@ fun RobotView(modifier: Modifier = Modifier.offset(-30.dp, -30.dp)) {
 fun Greeting(name: String) {
     Text(text = "Hello $name!")
 }
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    MainPage()
-}
-
 
 @Composable
 fun Map(rows: Int, columns: Int, cellSize: Int) {
