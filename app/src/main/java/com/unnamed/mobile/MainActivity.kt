@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.unnamed.mobile.component.UploadButton
 import com.unnamed.mobile.ui.theme.UnnamedmobileTheme
 
 class MainActivity : ComponentActivity() {
@@ -29,12 +30,19 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview() {
+    MainPage()
+}
+
 @Composable
 fun MainPage() {
     UnnamedmobileTheme {
         Column(modifier = Modifier.fillMaxSize()) {
             Greeting("Android")
             ComposedMap()
+            UploadButton()
         }
     }
 }
@@ -55,13 +63,6 @@ fun RobotView(modifier: Modifier = Modifier.offset(-30.dp, -30.dp)) {
 fun Greeting(name: String) {
     Text(text = "Hello $name!")
 }
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    MainPage()
-}
-
 
 @Composable
 fun Map(rows: Int, columns: Int, cellSize: Int) {
