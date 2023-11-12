@@ -20,6 +20,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.unnamed.mobile.component.UploadButton
+import com.unnamed.mobile.component.button.BackButton
 import com.unnamed.mobile.component.button.VoiceButton
 import com.unnamed.mobile.ui.theme.UnnamedmobileTheme
 
@@ -44,6 +45,7 @@ fun MainPage() {
         Column(modifier = Modifier.fillMaxSize()) {
             UploadButton()
             VoiceButton()
+            BackButton()
         }
 //        Column(modifier = Modifier.fillMaxSize()) {
 //            Greeting("Android")
