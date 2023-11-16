@@ -1,10 +1,8 @@
 package com.unnamed.mobile
 
 import android.Manifest
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.speech.SpeechRecognizer
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -26,7 +24,8 @@ import androidx.core.app.ActivityCompat
 import com.unnamed.mobile.processor.NlpInitializer
 import com.unnamed.mobile.component.UploadButton
 import com.unnamed.mobile.component.button.BackButton
-import com.unnamed.mobile.component.button.VoiceButton
+import com.unnamed.mobile.component.button.NlpButton
+import com.unnamed.mobile.processor.NlpProcessor
 import com.unnamed.mobile.ui.theme.UnnamedmobileTheme
 
 class MainActivity : ComponentActivity() {
@@ -42,8 +41,13 @@ class MainActivity : ComponentActivity() {
             )
         }
 
+        val nlpInitializer = NlpInitializer()
+        NlpProcessor.setIntent(nlpInitializer.initSpeechIntent(packageName = packageName))
+        NlpProcessor.setListener(nlpInitializer.initSpeechListener(applicationContext))
+
+
         fun onClickNlp() {
-            startListening()
+            NlpProcessor.startListening(this@MainActivity)
         }
 
         setContent {
@@ -63,7 +67,7 @@ fun MainPage() {
     UnnamedmobileTheme {
         Column(modifier = Modifier.fillMaxSize()) {
             UploadButton()
-            VoiceButton()
+            NlpButton()
             BackButton()
         }
 //        Column(modifier = Modifier.fillMaxSize()) {
@@ -132,7 +136,7 @@ fun Space(size: Int, content: Int) {
             .size(size.dp)
             .border(1.dp, Color.Black),
     ) {
-        when(content){
+        when (content) {
             0 -> GridCell(size = size)
             1 -> FilledGridCell(size = size)
             else -> GridCell(size = size)
