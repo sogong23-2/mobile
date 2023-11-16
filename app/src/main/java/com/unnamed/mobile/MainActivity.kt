@@ -23,7 +23,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.app.ActivityCompat
-import com.unnamed.mobile.processor.NlpProcessor
+import com.unnamed.mobile.processor.NlpInitializer
 import com.unnamed.mobile.component.UploadButton
 import com.unnamed.mobile.component.button.BackButton
 import com.unnamed.mobile.component.button.VoiceButton
@@ -42,10 +42,10 @@ class MainActivity : ComponentActivity() {
             )
         }
 
-        val nlpProcessor = NlpProcessor()
+        val nlpProcessor = NlpInitializer()
 
-        val sttIntent: Intent = nlpProcessor.setSpeechIntent(packageName)
-        val speechListener = nlpProcessor.setSpeechListener(applicationContext)
+        val sttIntent: Intent = nlpProcessor.initSpeechIntent(packageName)
+        val speechListener = nlpProcessor.initSpeechListener(applicationContext)
 
         fun startListening() {
             val mRecognizer =
