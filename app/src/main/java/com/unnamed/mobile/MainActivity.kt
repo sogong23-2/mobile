@@ -1,10 +1,10 @@
 package com.unnamed.mobile
 
 import android.Manifest
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.speech.SpeechRecognizer
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -23,7 +23,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.app.ActivityCompat
-import com.unnamed.mobile.processor.NlpProcessor
+import com.unnamed.mobile.processor.NlpInitializer
 import com.unnamed.mobile.component.UploadButton
 import com.unnamed.mobile.component.button.BackButton
 import com.unnamed.mobile.component.button.VoiceButton
@@ -42,17 +42,6 @@ class MainActivity : ComponentActivity() {
             )
         }
 
-        val nlpProcessor = NlpProcessor()
-
-        val sttIntent: Intent = nlpProcessor.setSpeechIntent(packageName)
-        val speechListener = nlpProcessor.setSpeechListener(applicationContext)
-
-        fun startListening() {
-            val mRecognizer =
-                SpeechRecognizer.createSpeechRecognizer(this@MainActivity)
-            mRecognizer.setRecognitionListener(speechListener)
-            mRecognizer.startListening(sttIntent)
-        }
         fun onClickNlp() {
             startListening()
         }
