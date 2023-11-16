@@ -42,17 +42,6 @@ class MainActivity : ComponentActivity() {
             )
         }
 
-        val nlpProcessor = NlpInitializer()
-
-        val sttIntent: Intent = nlpProcessor.initSpeechIntent(packageName)
-        val speechListener = nlpProcessor.initSpeechListener(applicationContext)
-
-        fun startListening() {
-            val mRecognizer =
-                SpeechRecognizer.createSpeechRecognizer(this@MainActivity)
-            mRecognizer.setRecognitionListener(speechListener)
-            mRecognizer.startListening(sttIntent)
-        }
         fun onClickNlp() {
             startListening()
         }
