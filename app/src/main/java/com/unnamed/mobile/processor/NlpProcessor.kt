@@ -16,5 +16,11 @@ object NlpProcessor {
         mRecognizer.startListening(intent)
     }
 
+    fun setIntent(intent: Intent) {
+        this.intent = intent
+    }
+    fun setListener(listener: RecognitionListener) {
+        this.listener = listener
+    }
 
 }

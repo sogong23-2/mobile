@@ -42,14 +42,12 @@ class MainActivity : ComponentActivity() {
         }
 
         val nlpInitializer = NlpInitializer()
-        val nlpProcessor = NlpProcessor(
-            nlpInitializer.initSpeechIntent(packageName = packageName),
-            nlpInitializer.initSpeechListener(applicationContext)
-        )
+        NlpProcessor.setIntent(nlpInitializer.initSpeechIntent(packageName = packageName))
+        NlpProcessor.setListener(nlpInitializer.initSpeechListener(applicationContext))
 
 
         fun onClickNlp() {
-            nlpProcessor.startListening(this@MainActivity)
+            NlpProcessor.startListening(this@MainActivity)
         }
 
         setContent {
