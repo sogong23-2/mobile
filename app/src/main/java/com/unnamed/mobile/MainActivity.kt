@@ -27,6 +27,7 @@ import com.unnamed.mobile.processor.NlpInitializer
 import com.unnamed.mobile.component.UploadButton
 import com.unnamed.mobile.component.button.BackButton
 import com.unnamed.mobile.component.button.VoiceButton
+import com.unnamed.mobile.processor.NlpProcessor
 import com.unnamed.mobile.ui.theme.UnnamedmobileTheme
 
 class MainActivity : ComponentActivity() {
@@ -42,8 +43,15 @@ class MainActivity : ComponentActivity() {
             )
         }
 
+        val nlpInitializer = NlpInitializer()
+        val nlpProcessor = NlpProcessor(
+            nlpInitializer.initSpeechIntent(packageName = packageName),
+            nlpInitializer.initSpeechListener(applicationContext)
+        )
+
+
         fun onClickNlp() {
-            startListening()
+            nlpProcessor.startListening(this@MainActivity)
         }
 
         setContent {
@@ -132,7 +140,7 @@ fun Space(size: Int, content: Int) {
             .size(size.dp)
             .border(1.dp, Color.Black),
     ) {
-        when(content){
+        when (content) {
             0 -> GridCell(size = size)
             1 -> FilledGridCell(size = size)
             else -> GridCell(size = size)
