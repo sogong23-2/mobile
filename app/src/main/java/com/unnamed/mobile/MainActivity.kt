@@ -1,10 +1,8 @@
 package com.unnamed.mobile
 
 import android.Manifest
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.speech.SpeechRecognizer
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -26,7 +24,7 @@ import androidx.core.app.ActivityCompat
 import com.unnamed.mobile.processor.NlpInitializer
 import com.unnamed.mobile.component.UploadButton
 import com.unnamed.mobile.component.button.BackButton
-import com.unnamed.mobile.component.button.VoiceButton
+import com.unnamed.mobile.component.button.NlpButton
 import com.unnamed.mobile.processor.NlpProcessor
 import com.unnamed.mobile.ui.theme.UnnamedmobileTheme
 
@@ -71,7 +69,7 @@ fun MainPage() {
     UnnamedmobileTheme {
         Column(modifier = Modifier.fillMaxSize()) {
             UploadButton()
-            VoiceButton()
+            NlpButton()
             BackButton()
         }
 //        Column(modifier = Modifier.fillMaxSize()) {

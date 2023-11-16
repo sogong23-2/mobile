@@ -6,14 +6,13 @@ import android.speech.RecognitionListener
 import android.speech.SpeechRecognizer
 
 class NlpProcessor(intent: Intent, listener: RecognitionListener) {
-    private val sttIntent: Intent = intent
-    private val speechListener: RecognitionListener = listener
+    private val intent: Intent = intent
+    private val listener: RecognitionListener = listener
 
     fun startListening(context: Context) {
-        val mRecognizer =
-            SpeechRecognizer.createSpeechRecognizer(context)
-        mRecognizer.setRecognitionListener(speechListener)
-        mRecognizer.startListening(sttIntent)
+        val mRecognizer = SpeechRecognizer.createSpeechRecognizer(context)
+        mRecognizer.setRecognitionListener(listener)
+        mRecognizer.startListening(intent)
     }
 
 }

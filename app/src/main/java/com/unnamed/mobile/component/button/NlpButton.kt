@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import com.unnamed.mobile.ui.theme.ButtonModifier
 
 @Composable
-fun VoiceButton() {
+fun NlpButton() {
     Button(
         onClick = { /*TODO*/ },
         modifier = ButtonModifier
