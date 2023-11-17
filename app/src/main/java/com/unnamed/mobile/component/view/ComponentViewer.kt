@@ -8,14 +8,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.unnamed.mobile.R
 
 @Composable
-fun RobotView(modifier: Modifier = Modifier.offset(-30.dp, -30.dp)) {
-    val image = painterResource(R.drawable.robot)
+fun ComponentViewer(componentView: ComponentView) {
+    val componentView: ComponentView = componentView
+
+    //TODO componentView.location에 따라서 Box 위치 조정
+    val modifier: Modifier = Modifier.offset(-30.dp, -30.dp)
+
     Box(modifier = Modifier.size(100.dp)) {
         Image(
-            painter = image,
+            painter = painterResource(id =componentView.src),
             contentDescription = "robot",
             modifier = modifier
         )

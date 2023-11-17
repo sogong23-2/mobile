@@ -13,6 +13,6 @@ fun ComposedMap() {
         contentAlignment = Alignment.Center
     ) {
         MapView(rows = 10, columns = 10, cellSize = 60)
-        RobotView()
+        RobotView(location = Pair(0,1))
     }
 }
