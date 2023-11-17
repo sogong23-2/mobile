@@ -11,13 +11,15 @@ import androidx.compose.ui.unit.dp
 import com.unnamed.mobile.R
 
 @Composable
-fun ComponentViewerrr() {
-    val image = painterResource(R.drawable.robot)
+fun ComponentViewer(componentView: ComponentView) {
+    val componentView: ComponentView = componentView
+
+    //TODO componentView.location에 따라서 Box 위치 조정
     val modifier: Modifier = Modifier.offset(-30.dp, -30.dp)
 
     Box(modifier = Modifier.size(100.dp)) {
         Image(
-            painter = image,
+            painter = painterResource(id =componentView.src),
             contentDescription = "robot",
             modifier = modifier
         )
@@ -26,7 +28,7 @@ fun ComponentViewerrr() {
 
 open class ComponentView{
     open val location: Pair<Int, Int> = Pair(0, 0)
-    open val src: String = "src"
+    open val src: Int = 0
 }
 
 open class DynamicView(): ComponentView() {
@@ -34,20 +36,21 @@ open class DynamicView(): ComponentView() {
 }
 
 class RobotView(location: Pair<Int, Int>): DynamicView(){
-    override val src = "dynamic"
+    override val src = R.drawable.robot
     override var location = location
     override fun move() {}
 }
 
+//TODO change R.drawable.robot
 class BlobView(location: Pair<Int, Int>): ComponentView() {
-    override val src = "dynamic"
+    override val src = R.drawable.robot
     override val location = location
 }
 class HardCodedView(location: Pair<Int, Int>): ComponentView() {
-    override val src = "dynamic"
+    override val src = R.drawable.robot
     override val location = location
 }
 class TargetView(location: Pair<Int, Int>): ComponentView() {
-    override val src = "dynamic"
+    override val src = R.drawable.robot
     override val location = location
 }
