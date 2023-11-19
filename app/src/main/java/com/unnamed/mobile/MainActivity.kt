@@ -26,8 +26,7 @@ import com.unnamed.mobile.processor.NlpInitializer
 import com.unnamed.mobile.component.UploadButton
 import com.unnamed.mobile.component.button.BackButton
 import com.unnamed.mobile.component.button.NlpButton
-import com.unnamed.mobile.component.view.MapView
-import com.unnamed.mobile.component.view.RobotView
+import com.unnamed.mobile.component.view.*
 import com.unnamed.mobile.processor.NlpProcessor
 import com.unnamed.mobile.ui.theme.UnnamedmobileTheme
 
@@ -69,9 +68,7 @@ fun DefaultPreview() {
 fun MainPage() {
     UnnamedmobileTheme {
         Column(modifier = Modifier.fillMaxSize()) {
-            UploadButton()
             NlpButton()
-            BackButton()
         }
 //        Column(modifier = Modifier.fillMaxSize()) {
 //            Greeting("Android")
