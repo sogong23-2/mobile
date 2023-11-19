@@ -9,7 +9,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun Map2View(mapSize: Pair<Int, Int>){
+fun MapViewer(mapSize: Pair<Int, Int>){
     val size: Pair<Int, Int> = mapSize
 
     Column {
@@ -21,7 +21,6 @@ fun Map2View(mapSize: Pair<Int, Int>){
             }
         }
     }
-
 }
 
 @Composable

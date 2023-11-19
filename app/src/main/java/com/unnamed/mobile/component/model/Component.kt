@@ -16,6 +16,6 @@ class Blob(location: Pair<Int, Int>): Component(location){
 class Hazard(location: Pair<Int, Int>): Component(location){
 
 }
-class Target(location: Pair<Int, Int>): Component(location){
+class TargetPoint(location: Pair<Int, Int>): Component(location){
 
 }
