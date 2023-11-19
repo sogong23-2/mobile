@@ -1,5 +1,6 @@
 package com.unnamed.mobile
 
+import Map2View
 import android.Manifest
 import android.os.Build
 import android.os.Bundle
@@ -68,6 +69,7 @@ fun DefaultPreview() {
 fun MainPage() {
     UnnamedmobileTheme {
         Column(modifier = Modifier.fillMaxSize()) {
+            Map2View(mapSize = Pair(5,6))
             NlpButton()
         }
 //        Column(modifier = Modifier.fillMaxSize()) {

@@ -14,12 +14,6 @@ import androidx.compose.ui.unit.dp
 
 
 @Composable
-fun Map2View(mapSize: Pair<Int, Int>){
-    val size: Pair<Int, Int> = mapSize
-
-}
-
-@Composable
 fun MapView(rows: Int, columns: Int, cellSize: Int) {
     LazyColumn(
         modifier = Modifier.fillMaxSize()
@@ -69,7 +63,6 @@ fun GridCell(size: Int) {
 
 @Composable
 fun FilledGridCell(size: Int) {
-
     Box(
         modifier = Modifier
             .size(size.dp)
