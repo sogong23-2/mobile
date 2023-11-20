@@ -9,7 +9,7 @@ object MapUiManager {
     var robotStatus: String = "idle"
     val componentViewModel = ComponentViewModel()
 
-    val robot: Robot = Robot(Pair(6, 5))
+    val robot: Robot = Robot(Pair(6F, 5F))
     private val statics: MutableList<Static> = mutableListOf(
         Blob(Pair(0, 0)),
         Hazard(Pair(1, 1)),
@@ -36,8 +36,8 @@ object MapUiManager {
         componentViewModel.clearComponents()
         robotStatus = status
     }
-    fun moveRobot(next: Pair<Int, Int>) {
-        componentViewModel.moveRobot(next)
+    suspend fun moveRobot(next: Pair<Int, Int>) {
+        componentViewModel.moveRobotTo(next)
         //TODO 애니메이션 적용
     }
 
