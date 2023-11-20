@@ -18,6 +18,7 @@ object MapUiManager {
         TargetPoint(Pair(4, 1)),
     )
 
+
     //TODO make change
     fun updateMap() {
     }
