@@ -10,7 +10,7 @@ object MapUiManager {
 
     //TODO 어딘가로부터 Component를 받아와야 함
     private val components: MutableList<Component> = mutableListOf(
-        Robot(Pair(6, 5)),
+        Robot(Pair(6.0F, 5.0F)),
         Blob(Pair(0, 0)),
         Hazard(Pair(1, 1)),
         Blob(Pair(2, 2)),
@@ -30,7 +30,7 @@ object MapUiManager {
 
     //TODO make change
     fun updateMap(){
-        componentViewModel.addComponent(componentToView(Robot(Pair(0, 0))))
+        componentViewModel.addComponent(componentToView(Robot(Pair(0F, 0F))))
     }
     fun uploadMap(){
         print("uploadMap")
