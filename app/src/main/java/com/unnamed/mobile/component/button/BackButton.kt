@@ -8,7 +8,9 @@ import com.unnamed.mobile.ui.theme.ButtonModifier
 @Composable
 fun BackButton() {
     Button(
-        onClick = { /*TODO*/ },
+        onClick = {
+
+        },
         modifier = ButtonModifier
     ){
         Text(text = "(Back Arrow)")
