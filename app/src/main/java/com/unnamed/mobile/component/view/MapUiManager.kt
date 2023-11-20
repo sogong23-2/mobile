@@ -9,7 +9,7 @@ object MapUiManager {
     var robotStatus: String = "idle"
     val componentViewModel = ComponentViewModel()
 
-    private val robot: Robot = Robot(Pair(6.0F, 5.0F))
+    val robot: Robot = Robot(Pair(6, 5))
     private val components: MutableList<Component> = mutableListOf(
         robot,
         Blob(Pair(0, 0)),
@@ -34,7 +34,7 @@ object MapUiManager {
     }
     fun moveRobot(next: Pair<Int, Int>) {
         robot.moveTo(next)
-        componentViewModel.moveRobotTo(robot, next)
+        //TODO 점진이동을 위해 Composable 천천히 이동
     }
 
 }

@@ -6,10 +6,10 @@ open class Component{
     open val src: Int = 0
 }
 
-open class Dynamic(location: Pair<Float, Float>): Component(){
-    var location: Pair<Float, Float> = location
-    fun move(next: Pair<Float, Float>){
-        location = Pair(next.first.toFloat(), next.second.toFloat())
+open class Dynamic(location: Pair<Int, Int>): Component(){
+    var location: Pair<Int, Int> = location
+    fun move(next: Pair<Int, Int>){
+        location = next
     }
 }
 
@@ -17,12 +17,12 @@ open class Static(location: Pair<Int, Int>): Component(){
     val location: Pair<Int, Int> = location
 }
 
-class Robot(location: Pair<Float, Float>): Dynamic(location){
+class Robot(location: Pair<Int, Int>): Dynamic(location){
     override val src = R.drawable.robot
     var trace: MutableList<Pair<Int, Int>> = mutableListOf()
     fun moveTo(next: Pair<Int, Int>){
         trace.add(next)
-        move(Pair(next.first.toFloat(), next.second.toFloat()))
+        move(next)
     }
 }
 class Blob(location: Pair<Int, Int>): Static(location){

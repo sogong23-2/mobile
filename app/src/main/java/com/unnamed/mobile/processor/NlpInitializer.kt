@@ -7,6 +7,7 @@ import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
 import android.widget.Toast
+import com.unnamed.mobile.component.view.MapUiManager
 
 class NlpInitializer {
     fun initSpeechIntent(packageName: String): Intent {
@@ -52,7 +53,7 @@ class NlpInitializer {
                     else -> "알 수 없는 오류임"
                 }
 
-                Toast.makeText(applicationContext, "$message", Toast.LENGTH_SHORT).show();
+                Toast.makeText(applicationContext, "DEBUG:${MapUiManager.robot.location} --$message", Toast.LENGTH_SHORT).show();
             }
 
             override fun onResults(p0: Bundle?) {

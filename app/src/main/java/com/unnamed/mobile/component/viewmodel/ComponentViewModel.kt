@@ -26,7 +26,4 @@ class ComponentViewModel: ViewModel() {
             components.add(componentView)
         }
     }
-    fun moveRobot(robot: Robot, next: Pair<Int, Int>){
-        robot.moveTo(next)
-    }
 }
