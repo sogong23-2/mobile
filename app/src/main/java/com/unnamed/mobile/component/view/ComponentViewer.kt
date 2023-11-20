@@ -13,59 +13,42 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.unnamed.mobile.component.model.Component
+import com.unnamed.mobile.component.model.Dynamic
+import com.unnamed.mobile.component.model.Static
 import kotlinx.coroutines.launch
 
-@Composable
-fun ComponentViewer(componentView: ComponentView, cellSize: Dp) {
-    val componentView: ComponentView = componentView
 
-    val x: Dp = cellSize * componentView.location.first
-    val y: Dp = cellSize * componentView.location.second
+@Composable
+fun DynamicViewer(dynamic: Dynamic, cellSize: Dp){
+    val dynamic: Dynamic = dynamic
+
+    val x: Dp = cellSize * dynamic.location.first
+    val y: Dp = cellSize * dynamic.location.second
     val modifier: Modifier = Modifier.offset(x, y)
 
     Box(Modifier.size(cellSize)) {
         Image(
-            painter = painterResource(id = componentView.src),
-            contentDescription = "component",
+            painter = painterResource(id = dynamic.src),
+            contentDescription = "dynamic",
             modifier = modifier
         )
     }
 }
 
-//@Composable
-//fun DynamicViewer(componentView: ComponentView, cellSize: Dp) {
-//    val x: Dp = cellSize * componentView.location.first
-//    val y: Dp = cellSize * componentView.location.second
-//
-//    var xOffset by remember { mutableStateOf(x) }
-//    var yOffset by remember { mutableStateOf(y) }
-//
-//    val coroutineScope = rememberCoroutineScope()
-//    val animatedOffset = remember { Animatable(0.0F) }
-//
-//    LaunchedEffect(Unit) {
-//        coroutineScope.launch {
-//            animatedOffset.animateTo(
-//                cellSize.value, animationSpec = tween(
-//                    durationMillis = 1000,
-//                    delayMillis = 0
-//                )
-//            ) {}
-//            //TODO change this to only move the one direction
-//            xOffset += animatedOffset.value.dp
-//            yOffset += animatedOffset.value.dp
-//        }
-//    }
-//
-//    Box(
-//        modifier = Modifier
-//            .size(cellSize)
-//            .offset(x = xOffset, y = yOffset)
-//    ) {
-//        Image(
-//            painter = painterResource(id = componentView.src),
-//            contentDescription = "component",
-//            modifier = Modifier.fillMaxSize()
-//        )
-//    }
-//}
+@Composable
+fun StaticViewer(static: Static, cellSize: Dp){
+    val static: Static = static
+
+    val x: Dp = cellSize * static.location.first
+    val y: Dp = cellSize * static.location.second
+    val modifier: Modifier = Modifier.offset(x, y)
+
+    Box(Modifier.size(cellSize)) {
+        Image(
+            painter = painterResource(id = static.src),
+            contentDescription = "dynamic",
+            modifier = modifier
+        )
+    }
+}
