@@ -14,7 +14,12 @@ open class DynamicView(): ComponentView() {
 class RobotView(location: Pair<Int, Int>): DynamicView(){
     override val src = R.drawable.robot
     override var location = location
-    override fun move() {}
+
+    override fun move() {
+        for(i in 0..100) {
+            location = Pair(location.first + 1, location.second + 1)
+        }
+    }
 }
 
 //TODO change R.drawable.robot

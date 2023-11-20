@@ -1,9 +1,12 @@
 package com.unnamed.mobile.component.viewmodel
 
+import android.view.View
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.unnamed.mobile.component.model.Component
 import com.unnamed.mobile.component.view.ComponentView
+import com.unnamed.mobile.component.view.DynamicView
 
 class ComponentViewModel: ViewModel() {
     private var components = mutableListOf<ComponentView>()
@@ -23,5 +26,8 @@ class ComponentViewModel: ViewModel() {
             print("log")
             components.add(componentView)
         }
+    }
+    fun moveComponent(component: DynamicView, next: Pair<Int, Int>){
+        component.move()
     }
 }

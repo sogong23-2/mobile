@@ -8,5 +8,5 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 val ButtonModifier = Modifier
-    .padding(16.dp)
+    .padding(4.dp)
     .background(color = androidx.compose.ui.graphics.Color.LightGray)
