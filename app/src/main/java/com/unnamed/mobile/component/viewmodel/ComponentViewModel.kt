@@ -4,41 +4,51 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.unnamed.mobile.component.model.Component
+import com.unnamed.mobile.component.model.Dynamic
 import com.unnamed.mobile.component.model.Robot
+import com.unnamed.mobile.component.model.Static
 
 class ComponentViewModel : ViewModel() {
-    private val _components = mutableStateOf(mutableListOf<Component>())
-    private val components: State<MutableList<Component>> = _components
+    private val _statics = mutableStateOf(mutableListOf<Static>())
+    private val statics: State<MutableList<Static>> = _statics
 
     private val _robot = mutableStateOf(Robot(Pair(0, 0)))
     private val robot: State<Robot> = _robot
 
-    fun addComponent(component: Component) {
-        _components.value = (components.value + component) as MutableList<Component>
+    fun addComponent(static: Static) {
+        _statics.value = (statics.value + static) as MutableList<Static>
     }
 
     fun clearComponents() {
-        _components.value = mutableListOf<Component>()
+        _statics.value = mutableListOf<Static>()
+        _robot.value = Robot(Pair(0, 0))
     }
 
-    fun initComponent(componentView: MutableList<Component>) {
-        for (componentView in componentView) {
-            addComponent(componentView)
+    fun initComponent(statics: MutableList<Static>, robot: Robot) {
+        for (static in statics) {
+            addComponent(static)
         }
-        _robot.value = components.value[0] as Robot
+        _robot.value = robot
 
     }
 
     fun moveRobot(next: Pair<Int, Int>) {
-        robot.value.moveTo(next)
+//        _robot.value = robot.value.apply {
+//            moveTo(next)
+//        }
+        _robot.value = Robot(next)
     }
 
-    fun renderScreen() {
-        _components.value = components.value
+    fun getStatics(): MutableList<Static> {
+        return statics.value
     }
 
-    fun getComponents(): MutableList<Component> {
-        return components.value
+    fun renderDynamics() {
+        _robot.value = _robot.value
+    }
+
+    fun getDynamics(): MutableList<Dynamic> {
+        return mutableListOf(robot.value)
     }
 
 }

@@ -10,8 +10,7 @@ object MapUiManager {
     val componentViewModel = ComponentViewModel()
 
     val robot: Robot = Robot(Pair(6, 5))
-    private val components: MutableList<Component> = mutableListOf(
-        robot,
+    private val statics: MutableList<Static> = mutableListOf(
         Blob(Pair(0, 0)),
         Hazard(Pair(1, 1)),
         Blob(Pair(2, 2)),
@@ -25,11 +24,11 @@ object MapUiManager {
 
     fun uploadMap() {
         print("uploadMap")
-        componentViewModel.initComponent(components)
+        componentViewModel.initComponent(statics, robot)
     }
-    fun addComponent(component: Component) {
-        components.add(component)
-        componentViewModel.addComponent(component)
+    fun addComponent(static: Static) {
+        statics.add(static)
+        componentViewModel.addComponent(static)
     }
 
     fun clearMap() {}

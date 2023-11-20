@@ -35,13 +35,11 @@ fun GuiView(viewModel: ComponentViewModel) {
                     MapViewer(mapSize = mapSize, cellSize = cellSize)
 
                     // Components stacked on top of the MapViewer
-                    viewModel.getComponents().forEach { component ->
-                        if(component is Dynamic){
-                            DynamicViewer(dynamic = component, cellSize = cellSize)
-                        }
-                        else if(component is Static){
+                    viewModel.getStatics().forEach { component ->
                             StaticViewer(static = component, cellSize = cellSize)
-                        }
+                    }
+                    viewModel.getDynamics().forEach { component ->
+                            DynamicViewer(dynamic = component, cellSize = cellSize)
                     }
                 }
             }
