@@ -4,7 +4,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import com.unnamed.mobile.component.view.MapUiManager
-import com.unnamed.mobile.ui.theme.ButtonModifier
+import com.unnamed.mobile.ui.theme.buttonModifier
 import kotlinx.coroutines.*
 
 @Composable
@@ -17,8 +17,8 @@ fun MoveDebugButton() {
                 }
             }
         },
-        modifier = ButtonModifier
+        modifier = buttonModifier
     ){
-        Text(text = "이동")
+        Text(text = "이동 - (5,5)")
     }
 }

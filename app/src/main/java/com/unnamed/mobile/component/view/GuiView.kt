@@ -1,10 +1,12 @@
 package com.unnamed.mobile.component.view
 
 import MapViewer
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -35,17 +37,24 @@ fun GuiView(viewModel: ComponentViewModel) {
 
                     // Components stacked on top of the MapViewer
                     viewModel.getStatics().forEach { component ->
-                            StaticViewer(static = component, cellSize = cellSize)
+                        StaticViewer(static = component, cellSize = cellSize)
                     }
                     viewModel.getDynamics().forEach { component ->
-                            DynamicViewer(dynamic = component, cellSize = cellSize)
+                        DynamicViewer(dynamic = component, cellSize = cellSize)
                     }
                 }
             }
             item {
-                Column {
-                    UploadButton()
-                    NlpButton()
+                Column(
+                    Modifier.fillMaxSize().padding(top = 45.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    Row {
+                        UploadButton()
+                        Box(modifier = Modifier.size(30.dp))
+                        NlpButton()
+                    }
+
                     BackButton()
                     MoveDebugButton()
                 }
