@@ -16,25 +16,13 @@ object MapUiManager {
         Blob(Pair(2, 2)),
         TargetPoint(Pair(4, 1)),
     )
-    private val componentViews: MutableList<ComponentView> = components.map { componentToView(it) }.toMutableList()
-
-    private fun componentToView(component: Component): ComponentView {
-        return when (component) {
-            is Robot -> RobotView(component.location)
-            is Blob -> BlobView(component.location)
-            is Hazard -> HazardView(component.location)
-            is TargetPoint -> TargetView(component.location)
-            else -> ComponentView()
-        }
-    }
 
     //TODO make change
     fun updateMap(){
-        componentViewModel.addComponent(componentToView(Robot(Pair(0F, 0F))))
     }
     fun uploadMap(){
         print("uploadMap")
-        componentViewModel.initComponent(componentViews)
+        componentViewModel.initComponent(components)
     }
     fun clearMap(){}
     fun updateRobotStatus(status: String){

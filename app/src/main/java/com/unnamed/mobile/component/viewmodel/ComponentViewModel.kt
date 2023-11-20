@@ -1,33 +1,32 @@
 package com.unnamed.mobile.component.viewmodel
 
-import android.view.View
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.unnamed.mobile.component.model.Component
-import com.unnamed.mobile.component.view.ComponentView
-import com.unnamed.mobile.component.view.DynamicView
+import com.unnamed.mobile.component.model.Dynamic
+import com.unnamed.mobile.component.model.Robot
 
 class ComponentViewModel: ViewModel() {
-    private var components = mutableListOf<ComponentView>()
-    val data: State<MutableList<ComponentView>> = mutableStateOf(components)
+    private var components = mutableListOf<Component>()
+    val data: State<MutableList<Component>> = mutableStateOf(components)
 
-    fun addComponent(component: ComponentView) {
+    fun addComponent(component: Component) {
         components.add(component)
     }
-    fun removeComponent(component: ComponentView) {
+    fun removeComponent(component: Component) {
         components.remove(component)
     }
     fun clearComponents() {
         components.clear()
     }
-    fun initComponent(componentViews: MutableList<ComponentView>) {
+    fun initComponent(componentViews: MutableList<Component>) {
         for (componentView in componentViews){
             print("log")
             components.add(componentView)
         }
     }
-    fun moveComponent(component: DynamicView, next: Pair<Int, Int>){
-        component.move()
+    fun moveRobot(robot: Robot, next: Pair<Int, Int>){
+        robot.moveTo(next)
     }
 }

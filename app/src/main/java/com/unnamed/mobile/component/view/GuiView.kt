@@ -11,6 +11,8 @@ import androidx.compose.ui.unit.dp
 import com.unnamed.mobile.component.UploadButton
 import com.unnamed.mobile.component.button.BackButton
 import com.unnamed.mobile.component.button.NlpButton
+import com.unnamed.mobile.component.model.Dynamic
+import com.unnamed.mobile.component.model.Static
 import com.unnamed.mobile.component.viewmodel.ComponentViewModel
 import com.unnamed.mobile.ui.theme.UnnamedmobileTheme
 
@@ -35,7 +37,12 @@ fun GuiView(viewModel: ComponentViewModel) {
 
                     // Components stacked on top of the MapViewer
                     components.value.forEach { component ->
-                        ComponentViewer(componentView = component, cellSize = cellSize)
+                        if(component is Dynamic){
+                            DynamicViewer(dynamic = component, cellSize = cellSize)
+                        }
+                        else if(component is Static){
+                            StaticViewer(static = component, cellSize = cellSize)
+                        }
                     }
                 }
             }
