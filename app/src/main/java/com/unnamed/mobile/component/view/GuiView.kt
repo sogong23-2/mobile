@@ -18,7 +18,6 @@ import com.unnamed.mobile.ui.theme.UnnamedmobileTheme
 
 @Composable
 fun GuiView(viewModel: ComponentViewModel) {
-    val components = viewModel.data
     val mapSize = MapUiManager.mapSize
 
     val configuration = LocalConfiguration.current
@@ -36,7 +35,7 @@ fun GuiView(viewModel: ComponentViewModel) {
                     MapViewer(mapSize = mapSize, cellSize = cellSize)
 
                     // Components stacked on top of the MapViewer
-                    components.value.forEach { component ->
+                    viewModel.getComponents().forEach { component ->
                         if(component is Dynamic){
                             DynamicViewer(dynamic = component, cellSize = cellSize)
                         }

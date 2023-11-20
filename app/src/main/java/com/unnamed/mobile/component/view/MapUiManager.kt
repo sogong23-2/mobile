@@ -26,6 +26,10 @@ object MapUiManager {
         print("uploadMap")
         componentViewModel.initComponent(components)
     }
+    fun addComponent(component: Component) {
+        components.add(component)
+        componentViewModel.addComponent(component)
+    }
 
     fun clearMap() {}
     fun updateRobotStatus(status: String) {
@@ -33,9 +37,8 @@ object MapUiManager {
         robotStatus = status
     }
     fun moveRobot(next: Pair<Int, Int>) {
-        robot.moveTo(next)
+        componentViewModel.moveRobot(next)
         //TODO 애니메이션 적용
-
     }
 
 }
