@@ -34,7 +34,8 @@ object MapUiManager {
     }
     fun moveRobot(next: Pair<Int, Int>) {
         robot.moveTo(next)
-        //TODO 점진이동을 위해 Composable 천천히 이동
+        //TODO 애니메이션 적용
+
     }
 
 }
