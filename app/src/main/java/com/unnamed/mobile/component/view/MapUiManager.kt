@@ -10,6 +10,7 @@ object MapUiManager {
     val componentViewModel = ComponentViewModel()
 
     val robot: Robot = Robot(Pair(6F, 5F))
+
     private val statics: MutableList<Static> = mutableListOf(
         Blob(Pair(0, 0)),
         Hazard(Pair(1, 1)),
@@ -38,7 +39,7 @@ object MapUiManager {
     }
     suspend fun moveRobot(next: Pair<Int, Int>) {
         componentViewModel.moveRobotTo(next)
-        //TODO 애니메이션 적용
+        robot.location = Pair(next.first.toFloat(), next.second.toFloat())
     }
 
 }
