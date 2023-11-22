@@ -5,11 +5,10 @@ import com.unnamed.mobile.component.viewmodel.ComponentViewModel
 
 object MapUiManager {
     //TODO 쓰이는 properties는 다 외부에서 정의할 수 있도록
-    val mapSize: Pair<Int, Int> = Pair(7, 6)
-    var robotStatus: String = "idle"
+    var mapSize: Pair<Int, Int> = Pair(7, 6)
     val componentViewModel = ComponentViewModel()
 
-    val robot: Robot = Robot(Pair(6F, 5F))
+    var robot: Robot = Robot(Pair(6F, 5F))
 
     private val statics: MutableList<Static> = mutableListOf(
         Blob(Pair(0, 0)),
@@ -24,22 +23,66 @@ object MapUiManager {
     }
 
     fun uploadMap() {
-        print("uploadMap")
         componentViewModel.initComponent(statics, robot)
+        robot.location = componentViewModel.getRobotLocation()
     }
-    fun addComponent(static: Static) {
+
+    fun initMap(map: MapDo) {
+        mapSize = map.mapSize
+        moveLocateInit(pairToFloat(map.robot))
+        initStatics(map.blob, map.hazard, map.targetPoint)
+
+        uploadMap()
+    }
+
+    fun initStatics(
+        blobs: List<Pair<Int, Int>>,
+        hazards: List<Pair<Int, Int>>,
+        targetPoints: List<Pair<Int, Int>>
+    ) {
+        statics.clear()
+
+        for (targetPoint in targetPoints) {
+            addComponent(toTargetPoint(targetPoint))
+        }
+        for (blob in blobs) {
+            addComponent(toBlob(blob))
+        }
+        for (hazard in hazards) {
+            addComponent(toHazard(hazard))
+        }
+
+    }
+
+    private fun toBlob(location: Pair<Int, Int>): Static{
+        return Blob(location)
+    }
+    private fun toHazard(location: Pair<Int, Int>): Static{
+        return Hazard(location)
+    }
+    private fun toTargetPoint(location: Pair<Int, Int>): Static{
+        return TargetPoint(location)
+    }
+
+
+    private fun addComponent(static: Static) {
         statics.add(static)
         componentViewModel.addComponent(static)
     }
 
     fun clearMap() {}
-    fun updateRobotStatus(status: String) {
-        componentViewModel.clearComponents()
-        robotStatus = status
-    }
+
     suspend fun moveRobot(next: Pair<Int, Int>) {
         componentViewModel.moveRobotTo(next)
         robot.location = Pair(next.first.toFloat(), next.second.toFloat())
+    }
+
+    private fun moveLocateInit(location: Pair<Float, Float>) {
+        robot.location = location
+    }
+
+    private fun pairToFloat(pair: Pair<Int, Int>): Pair<Float, Float> {
+        return Pair(pair.first.toFloat(), pair.second.toFloat())
     }
 
 }

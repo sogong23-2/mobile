@@ -1,6 +1,8 @@
 package com.unnamed.mobile.component.view
 
 import MapViewer
+import android.app.Activity
+import android.content.Context
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
@@ -10,6 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.core.app.ActivityCompat.recreate
 import com.unnamed.mobile.component.UploadButton
 import com.unnamed.mobile.component.button.BackButton
 import com.unnamed.mobile.component.button.MoveDebugButton
@@ -18,7 +21,7 @@ import com.unnamed.mobile.component.viewmodel.ComponentViewModel
 import com.unnamed.mobile.ui.theme.UnnamedmobileTheme
 
 @Composable
-fun GuiView(viewModel: ComponentViewModel) {
+fun GuiView(viewModel: ComponentViewModel, recreateActivity: () -> Unit) {
     val mapSize = MapUiManager.mapSize
 
     val configuration = LocalConfiguration.current
@@ -46,11 +49,13 @@ fun GuiView(viewModel: ComponentViewModel) {
             }
             item {
                 Column(
-                    Modifier.fillMaxSize().padding(top = 45.dp),
+                    Modifier
+                        .fillMaxSize()
+                        .padding(top = 45.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     Row {
-                        UploadButton()
+                        UploadButton(recreateActivity)
                         Box(modifier = Modifier.size(30.dp))
                         NlpButton()
                     }

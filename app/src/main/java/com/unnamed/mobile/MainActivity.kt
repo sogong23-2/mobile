@@ -41,7 +41,7 @@ class MainActivity : ComponentActivity() {
         }
 
         setContent {
-            GuiView(viewModel = MapUiManager.componentViewModel)
+            GuiView(viewModel = MapUiManager.componentViewModel) { recreate() }
         }
     }
 }
@@ -49,6 +49,8 @@ class MainActivity : ComponentActivity() {
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    GuiView(viewModel = MapUiManager.componentViewModel)
+    GuiView(viewModel = MapUiManager.componentViewModel) {recreate()}
 }
+
+fun recreate() {}
 
