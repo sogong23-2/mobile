@@ -21,7 +21,7 @@ fun UploadButton(recreateActivity: () -> Unit) {
     Button(
         onClick = {
             MapUiManager.initMap(
-                streamResolver("m7,6/r0,0/b1,5/b2,2/h1,1/t4,5")
+                streamResolver("m7,6/r0,0/b1,5/b2,2/h1,1/t4,5/")
             )
             recreateActivity()
         },

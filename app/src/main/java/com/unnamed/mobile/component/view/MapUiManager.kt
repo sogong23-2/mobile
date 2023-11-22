@@ -27,6 +27,17 @@ object MapUiManager {
         robot.location = componentViewModel.getRobotLocation()
     }
 
+    fun autoInit(){
+        val map = MapDo(
+            mapSize = Pair(7, 6),
+            robot = Pair(6, 5),
+            blob = listOf(Pair(0, 0), Pair(2, 2)),
+            hazard = listOf(Pair(1, 1)),
+            targetPoint = listOf(Pair(4, 1))
+        )
+        initMap(map)
+    }
+
     fun initMap(map: MapDo) {
         mapSize = map.mapSize
         moveLocateInit(pairToFloat(map.robot))
