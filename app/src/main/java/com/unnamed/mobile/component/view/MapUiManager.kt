@@ -8,7 +8,7 @@ object MapUiManager {
     var mapSize: Pair<Int, Int> = Pair(7, 6)
     val componentViewModel = ComponentViewModel()
 
-    var robot: Robot = Robot(Pair(6F, 5F))
+    var robot: Robot = Robot(Pair(4F, 5F))
 
     private val statics: MutableList<Static> = mutableListOf(
         Blob(Pair(0, 0)),
@@ -30,8 +30,8 @@ object MapUiManager {
     fun autoInit(){
         val map = MapDo(
             mapSize = Pair(7, 6),
-            robot = Pair(6, 5),
-            blob = listOf(Pair(0, 0), Pair(2, 2)),
+            robot = Pair(0, 0),
+            blob = listOf(Pair(6, 5), Pair(2, 2)),
             hazard = listOf(Pair(1, 1)),
             targetPoint = listOf(Pair(4, 1))
         )
