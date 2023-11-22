@@ -44,6 +44,7 @@ class MainActivity : ComponentActivity() {
             GuiView(viewModel = MapUiManager.componentViewModel) { recreate() }
         }
     }
+
 }
 
 @Preview(showBackground = true)
