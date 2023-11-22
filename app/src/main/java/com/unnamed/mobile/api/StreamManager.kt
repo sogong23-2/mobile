@@ -3,8 +3,8 @@ package com.unnamed.mobile.api
 import com.unnamed.mobile.component.model.MapDo
 
 object StreamManager{
-    fun streamResolver(stream: String): MapDo {
 
+    fun streamResolver(stream: String): MapDo {
         var mapSize: Pair<Int, Int> = Pair(0, 0)
         var robot: Pair<Int, Int> = Pair(0, 0)
         var blobs: MutableList<Pair<Int, Int>> = mutableListOf()
