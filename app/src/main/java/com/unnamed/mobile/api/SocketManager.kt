@@ -37,7 +37,6 @@ class SocketManager(private val responseListener: ResponseListener) {
                 val request = reader.readLine()
 
                 //TODO Handle Request
-
                 writer.close()
                 reader.close()
                 clientSocket.close()

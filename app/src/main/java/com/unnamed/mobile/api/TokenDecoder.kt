@@ -3,7 +3,7 @@ package com.unnamed.mobile.api
 import com.unnamed.mobile.component.model.*
 import com.unnamed.mobile.component.view.MapUiManager
 
-object TokenManager {
+object TokenDecoder {
     suspend fun apiResolver(data: String) {
         val cmd = parseCmd(data)
         val tokens = parseToToken(data)
