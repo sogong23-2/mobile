@@ -32,9 +32,11 @@ class ComponentViewModel : ViewModel() {
             addComponent(static)
         }
         _robot.value = robot
-
     }
 
+    fun getRobotLocation(): Pair<Float, Float> {
+        return _robot.value.location
+    }
     fun moveRobot(dx: Float, dy: Float) {
         val now = _robot.value.location
         val x = now.first + dx
