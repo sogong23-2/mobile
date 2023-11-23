@@ -1,12 +1,14 @@
 package com.unnamed.mobile.api
 
 import android.net.http.HttpResponseCache.install
+import com.unnamed.mobile.component.view.MapUiManager
 import kotlinx.coroutines.*
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 import java.net.ServerSocket
 import java.net.Socket
+import kotlin.math.roundToInt
 
 private val receivedQueue = mutableListOf<String>()
 
@@ -36,7 +38,12 @@ class SocketManager(private val responseListener: ResponseListener) {
                 val writer = OutputStreamWriter(clientSocket.getOutputStream())
                 val request = reader.readLine()
 
-                //TODO Handle Request
+                CoroutineScope(GlobalScope.coroutineContext).launch {
+                    withContext(Dispatchers.Main) {
+                        SocketHandler.apiResolver(request)
+                    }
+                }
+
                 writer.close()
                 reader.close()
                 clientSocket.close()
