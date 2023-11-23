@@ -19,7 +19,8 @@ object MapUiManager {
 
 
     //TODO make change
-    fun updateMap() {
+    fun updateMap(addingStatics: List<Static>) {
+        statics.addAll(addingStatics)
     }
 
     fun uploadMap() {
@@ -29,11 +30,11 @@ object MapUiManager {
 
     fun autoInit(){
         val map = MapDo(
-            mapSize = Pair(7, 6),
+            mapSize = Pair(5, 6),
             robot = Pair(0, 0),
-            blob = listOf(Pair(6, 5), Pair(2, 2)),
+            blob = listOf(Pair(1, 5), Pair(2, 2)),
             hazard = listOf(Pair(1, 1)),
-            targetPoint = listOf(Pair(4, 1))
+            targetPoint = listOf(Pair(4, 2))
         )
         initMap(map)
     }
@@ -83,6 +84,10 @@ object MapUiManager {
 
     fun clearMap() {}
 
+    fun getRobotLocation(): Pair<Float, Float> {
+        return robot.location
+    }
+
     suspend fun moveRobot(next: Pair<Int, Int>) {
         componentViewModel.moveRobotTo(next)
         robot.location = Pair(next.first.toFloat(), next.second.toFloat())
@@ -95,6 +100,7 @@ object MapUiManager {
     private fun pairToFloat(pair: Pair<Int, Int>): Pair<Float, Float> {
         return Pair(pair.first.toFloat(), pair.second.toFloat())
     }
+
 
 }
 
