@@ -7,6 +7,9 @@ import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
 import android.widget.Toast
+import com.unnamed.mobile.api.SocketManager
+import com.unnamed.mobile.api.TokenDecoder
+import com.unnamed.mobile.api.TokenEncoder
 import com.unnamed.mobile.component.view.MapUiManager
 
 class NlpInitializer {
@@ -34,8 +37,7 @@ class NlpInitializer {
             override fun onBufferReceived(p0: ByteArray?) {
             }
 
-            override fun onEndOfSpeech() {
-            }
+            override fun onEndOfSpeech() {}
 
             override fun onError(p0: Int) {
                 var message: String = "수행 오류 발생"
@@ -53,6 +55,8 @@ class NlpInitializer {
                     else -> "알 수 없는 오류임"
                 }
 
+                //TODO NoMatch or Recogbusy -> 재시드
+                // 나머지에선 연결 끊는 통신 전송
                 Toast.makeText(applicationContext, "DEBUG:${MapUiManager.robot.location} --$message", Toast.LENGTH_SHORT).show();
             }
 
@@ -63,6 +67,8 @@ class NlpInitializer {
                 }
                 val matches: ArrayList<String> =
                     p0.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION) as ArrayList<String>
+
+                SocketManager.sendRequest(TokenEncoder.tokenStaticUpdated(matches))
             }
 
             override fun onPartialResults(p0: Bundle?) {}

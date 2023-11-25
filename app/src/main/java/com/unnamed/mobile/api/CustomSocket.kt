@@ -1,6 +1,5 @@
 package com.unnamed.mobile.api
 
-import android.net.http.HttpResponseCache.install
 import kotlinx.coroutines.*
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -16,7 +15,29 @@ interface ResponseListener {
     }
 }
 
-class SocketManager(private val responseListener: ResponseListener) {
+object SocketManager{
+    fun sendRequest(data: String){
+        val responseListener = object : ResponseListener {
+            override fun onResponseReceived(response: String) {
+                println("response: $response")
+            }
+        }
+        val socket = CustomSocket(responseListener)
+        socket.clientMode(data)
+    }
+
+    fun openServer() {
+        val responseListener = object : ResponseListener {
+            override fun onResponseReceived(response: String) {
+                println("response: $response")
+            }
+        }
+        val socket = CustomSocket(responseListener)
+        socket.serverMode()
+    }
+}
+
+class CustomSocket(private val responseListener: ResponseListener) {
 
     //TODO change init settings
     private val port = 5000
@@ -36,7 +57,11 @@ class SocketManager(private val responseListener: ResponseListener) {
                 val writer = OutputStreamWriter(clientSocket.getOutputStream())
                 val request = reader.readLine()
 
-                //TODO Handle Request
+                CoroutineScope(GlobalScope.coroutineContext).launch {
+                    withContext(Dispatchers.Main) {
+                        SocketHandler.apiResolver(request)
+                    }
+                }
 
                 writer.close()
                 reader.close()
