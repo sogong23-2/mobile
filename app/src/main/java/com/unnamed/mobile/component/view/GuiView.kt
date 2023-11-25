@@ -20,21 +20,19 @@ import com.unnamed.mobile.ui.theme.UnnamedmobileTheme
 
 @Composable
 fun GuiView(viewModel: ComponentViewModel, recreateActivity: () -> Unit) {
-    val mapSize = MapUiManager.mapSize
-
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp.dp
     val screenHeight = configuration.screenHeightDp.dp
 
     //TODO 디테일 스펙 수정
-    val cellSize: Dp = screenWidth / (mapSize.first)
+    val cellSize: Dp = screenWidth / (viewModel.getMapSize().first)
 
     UnnamedmobileTheme {
         LazyColumn() {
             item {
                 Box {
                     // MapViewer as the background
-                    MapViewer(mapSize = mapSize, cellSize = cellSize)
+                    MapViewer(mapSize = viewModel.getMapSize(), cellSize = cellSize)
 
                     // Components stacked on top of the MapViewer
                     viewModel.getStatics().forEach { component ->
@@ -65,7 +63,6 @@ fun GuiView(viewModel: ComponentViewModel, recreateActivity: () -> Unit) {
                         Box(modifier = Modifier.size(30.dp))
                         RobotControlButton(viewModel)
                     }
-
                 }
             }
         }

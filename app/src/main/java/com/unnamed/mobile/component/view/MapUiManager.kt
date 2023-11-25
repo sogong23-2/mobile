@@ -26,13 +26,13 @@ object MapUiManager {
 
     fun uploadMap() {
         componentViewModel.clearComponents()
-        componentViewModel.initComponent(statics, robot)
+        componentViewModel.initComponent(statics, robot, mapSize)
         robot.location = componentViewModel.getRobotLocation()
     }
 
     fun autoInit(){
         val map = MapDo(
-            mapSize = Pair(5, 6),
+            mapSize = Pair(10, 6),
             robot = Pair(0, 0),
             blob = listOf(Pair(1, 5), Pair(2, 2)),
             hazard = listOf(Pair(1, 1)),

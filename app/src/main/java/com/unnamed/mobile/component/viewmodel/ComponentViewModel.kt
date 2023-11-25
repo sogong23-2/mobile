@@ -12,6 +12,9 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 
 class ComponentViewModel : ViewModel() {
+    private val _mapSize = mutableStateOf(Pair(0, 0))
+    private val mapSize: State<Pair<Int, Int>> = _mapSize
+
     private val _statics = mutableStateOf(mutableListOf<Static>())
     private val statics: State<MutableList<Static>> = _statics
 
@@ -30,11 +33,12 @@ class ComponentViewModel : ViewModel() {
         _robot.value = Robot(Pair(0F, 0F))
     }
 
-    fun initComponent(statics: MutableList<Static>, robot: Robot) {
+    fun initComponent(statics: MutableList<Static>, robot: Robot, mapSize: Pair<Int, Int>) {
         for (static in statics) {
             addComponent(static)
         }
         _robot.value = robot
+        _mapSize.value = mapSize
     }
 
     fun getRobotLocation(): Pair<Float, Float> {
@@ -81,5 +85,7 @@ class ComponentViewModel : ViewModel() {
     fun getRobotStatus(): String {
         return _robotStatus.value
     }
-
+    fun getMapSize(): Pair<Int, Int> {
+        return mapSize.value
+    }
 }
