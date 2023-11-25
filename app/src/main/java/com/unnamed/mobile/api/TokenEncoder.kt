@@ -13,7 +13,7 @@ object TokenEncoder {
     fun tokenResume(): String {
         return "RSR/"
     }
-    //TODO NLP input format 정의
+    //TODO NLP input format 파싱
     fun tokenStaticUpdated(statics: List<String>): String {
         var token = "UDM/"
         for (static in statics) {

@@ -45,11 +45,11 @@ fun showDialog(context: Context) {
     builder.setPositiveButton("자동입력") { _, _ ->
         MapUiManager.autoInit()
         SocketManager.sendRequest(TokenEncoder.tokenMapInit())
-
     }
 
     builder.setNegativeButton("직접입력") { _, _ ->
         MapUiManager.initMap(map)
+        SocketManager.sendRequest(TokenEncoder.tokenMapInit())
     }
 
     builder.show()
