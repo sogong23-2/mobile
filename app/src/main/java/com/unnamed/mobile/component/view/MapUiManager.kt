@@ -25,6 +25,7 @@ object MapUiManager {
     }
 
     fun uploadMap() {
+        componentViewModel.clearComponents()
         componentViewModel.initComponent(statics, robot)
         robot.location = componentViewModel.getRobotLocation()
     }
