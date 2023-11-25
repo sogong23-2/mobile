@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Autorenew
+import androidx.compose.material.icons.filled.CloudUpload
 import androidx.compose.material.icons.filled.Upload
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
@@ -26,8 +28,8 @@ fun UploadButton(onQuit: () -> Unit) {
     ) {
         Row {
             Icon(
-                imageVector = Icons.Default.Upload,
-                contentDescription = "Mic",
+                imageVector = Icons.Default.CloudUpload,
+                contentDescription = "Upload",
                 iconModifier
             )
         }
@@ -39,16 +41,14 @@ fun showDialog(context: Context) {
     val map: MapDo = TokenDecoder.uploadMap("UML/m7,6/r0,0/b1,5/b2,2/h1,1/t4,5/")
 
     val builder = AlertDialog.Builder(context)
-    builder.setTitle("지도 입력 방법")
-    builder.setMessage("옵션")
+    builder.setTitle("지도 기본값으로 업로드")
 
-    builder.setPositiveButton("자동입력") { _, _ ->
-        MapUiManager.autoInit()
-        SocketManager.sendRequest(TokenEncoder.tokenMapInit())
+    builder.setNegativeButton("취소") { dialog, _ ->
+        dialog.dismiss()
     }
 
-    builder.setNegativeButton("직접입력") { _, _ ->
-        MapUiManager.initMap(map)
+    builder.setPositiveButton("업로드") { _, _ ->
+        MapUiManager.autoInit()
         SocketManager.sendRequest(TokenEncoder.tokenMapInit())
     }
 
