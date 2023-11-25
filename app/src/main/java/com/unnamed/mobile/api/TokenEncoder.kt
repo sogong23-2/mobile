@@ -8,10 +8,10 @@ import com.unnamed.mobile.component.view.MapUiManager
 
 object TokenEncoder {
     fun tokenPause(): String {
-        return "PSR/"
+        return "PSR/\r"
     }
     fun tokenResume(): String {
-        return "RSR/"
+        return "RSR/\r"
     }
     //TODO NLP input format 파싱
     fun tokenStaticUpdated(statics: List<String>): String {
@@ -19,6 +19,7 @@ object TokenEncoder {
         for (static in statics) {
             token += static
         }
+        token += "\r"
         return token
     }
     fun tokenMapInit(): String {
@@ -34,21 +35,22 @@ object TokenEncoder {
                 token += staticToToken(static)
             }
         }
+        token += "\r"
         return token
     }
     private fun staticToToken(static: Static): String {
         return when(static){
             is Blob -> {
-                "b${static.location.first},${static.location.second}/"
+                "b${static.location.first},${static.location.second}/\r"
             }
             is Hazard -> {
-                "h${static.location.first},${static.location.second}/"
+                "h${static.location.first},${static.location.second}/\r"
             }
             is TargetPoint -> {
-                "t${static.location.first},${static.location.second}/"
+                "t${static.location.first},${static.location.second}/\r"
             }
             else -> {
-                ""
+                "\r"
             }
         }
     }
