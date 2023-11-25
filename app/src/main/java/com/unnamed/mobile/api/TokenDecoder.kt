@@ -3,26 +3,8 @@ package com.unnamed.mobile.api
 import com.unnamed.mobile.component.model.*
 import com.unnamed.mobile.component.view.MapUiManager
 
-object TokenManager {
-    suspend fun apiResolver(data: String) {
-        val cmd = parseCmd(data)
-        val tokens = parseToToken(data)
-
-        when (cmd) {
-            "MRG" -> {
-                MapUiManager.moveRobot(destinationMoved(tokens))
-            }
-            "UMG" -> {
-                MapUiManager.updateMap(staticUpdated(tokens))
-            }
-            else -> {
-                println("invalid command")
-            }
-
-        }
-    }
-
-    private fun destinationMoved(tokens: List<String>): Pair<Int, Int> {
+object TokenDecoder {
+    fun destinationMoved(tokens: List<String>): Pair<Int, Int> {
         val token = tokens[0]
         val type = token[0]
         val payload = token.substring(1, token.length - 1)
@@ -100,11 +82,11 @@ object TokenManager {
         return MapDo(mapSize, robot, blobs, hazards, targetPoints)
     }
 
-    private fun parseCmd(data: String): String {
+    fun parseCmd(data: String): String {
         return data.substring(0, data.indexOf('/'))
     }
 
-    private fun parseToToken(data: String): List<String> {
+    fun parseToToken(data: String): List<String> {
         val tokens = mutableListOf<String>()
         var currentIndex = 4
 

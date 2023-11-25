@@ -89,6 +89,10 @@ object MapUiManager {
         return robot.location
     }
 
+    fun getStatics(): List<Static> {
+        return statics
+    }
+
     suspend fun moveRobot(next: Pair<Int, Int>) {
         componentViewModel.moveRobotTo(next)
         robot.location = Pair(next.first.toFloat(), next.second.toFloat())
