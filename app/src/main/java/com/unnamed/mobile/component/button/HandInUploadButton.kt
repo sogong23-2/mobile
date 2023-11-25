@@ -1,13 +1,15 @@
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Upload
 import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.unnamed.mobile.api.TokenDecoder
 import com.unnamed.mobile.component.model.MapDo
+import com.unnamed.mobile.ui.theme.buttonModifier
+import com.unnamed.mobile.ui.theme.iconModifier
 
 @Composable
-fun InputWindow(onSubmit: (MapDo) -> Unit) {
+fun HandInUploadButton(onSubmit: (MapDo) -> Unit) {
     var mapSize by remember { mutableStateOf("") }
     var robotLocation by remember { mutableStateOf("") }
     var targetPoints by remember { mutableStateOf("") }
@@ -66,7 +68,11 @@ fun InputWindow(onSubmit: (MapDo) -> Unit) {
         )
     }
 
-    Button(onClick = { showDialog = true }) {
-        Text("Hand In")
+    Button(onClick = { showDialog = true }, modifier = buttonModifier) {
+        Icon(
+            imageVector = Icons.Default.Upload,
+            contentDescription = "Upload",
+            iconModifier
+        )
     }
 }
