@@ -1,14 +1,11 @@
 package com.unnamed.mobile.api
 
-import android.net.http.HttpResponseCache.install
-import com.unnamed.mobile.component.view.MapUiManager
 import kotlinx.coroutines.*
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 import java.net.ServerSocket
 import java.net.Socket
-import kotlin.math.roundToInt
 
 private val receivedQueue = mutableListOf<String>()
 
@@ -18,7 +15,29 @@ interface ResponseListener {
     }
 }
 
-class SocketManager(private val responseListener: ResponseListener) {
+object SocketManager{
+    fun sendRequest(data: String){
+        val responseListener = object : ResponseListener {
+            override fun onResponseReceived(response: String) {
+                println("response: $response")
+            }
+        }
+        val socket = CustomSocket(responseListener)
+        socket.clientMode(data)
+    }
+
+    fun openServer() {
+        val responseListener = object : ResponseListener {
+            override fun onResponseReceived(response: String) {
+                println("response: $response")
+            }
+        }
+        val socket = CustomSocket(responseListener)
+        socket.serverMode()
+    }
+}
+
+class CustomSocket(private val responseListener: ResponseListener) {
 
     //TODO change init settings
     private val port = 5000
