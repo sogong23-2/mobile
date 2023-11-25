@@ -25,6 +25,16 @@ fun HandInUploadButton(onSubmit: (MapDo) -> Unit) {
             title = { Text("Input Window") },
             confirmButton = {
                 Button(onClick = {
+                    if (
+                        verifyRobot(robotLocation)
+                        && verifyMap(mapSize)
+                        && verifyTargets(targetPoints)
+                        && verifyBlob(blobPoints)
+                        && verifyHazard(hazardPoints)
+
+                    ) {
+
+                    }
                     val parsedMapSize = mapSize
                     val parsedRobotLocation = robotLocation
                     val parsedTargetPoints = targetPoints
@@ -75,4 +85,20 @@ fun HandInUploadButton(onSubmit: (MapDo) -> Unit) {
             iconModifier
         )
     }
+}
+
+fun verifyMap(mapSize: String): Boolean {
+    return mapSize.matches(Regex("m[0-9]+,[0-9]+/"))
+}
+fun verifyRobot(robotLocation: String): Boolean {
+    return robotLocation.matches(Regex("r[0-9]+,[0-9]+/"))
+}
+fun verifyTargets(targetPoints: String): Boolean {
+    return targetPoints.matches(Regex("(t[0-9]+,[0-9]+/)*"))
+}
+fun verifyBlob(blobPoints: String): Boolean {
+    return blobPoints.matches(Regex("(b[0-9]+,[0-9]+/)*"))
+}
+fun verifyHazard(hazardPoints: String): Boolean {
+    return hazardPoints.matches(Regex("(h[0-9]+,[0-9]+/)*"))
 }

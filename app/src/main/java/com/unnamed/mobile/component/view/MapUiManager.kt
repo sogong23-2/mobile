@@ -32,9 +32,9 @@ object MapUiManager {
 
     fun autoInit(){
         val map = MapDo(
-            mapSize = Pair(10, 6),
+            mapSize = Pair(5, 5),
             robot = Pair(0, 0),
-            blob = listOf(Pair(1, 5), Pair(2, 2)),
+            blob = listOf(Pair(1, 2), Pair(2, 2)),
             hazard = listOf(Pair(1, 1)),
             targetPoint = listOf(Pair(4, 2))
         )
