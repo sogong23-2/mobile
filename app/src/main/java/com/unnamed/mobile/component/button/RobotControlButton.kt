@@ -7,23 +7,26 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.*
 import com.unnamed.mobile.api.SocketManager
+import com.unnamed.mobile.api.TokenEncoder
+import com.unnamed.mobile.component.viewmodel.ComponentViewModel
 import com.unnamed.mobile.ui.theme.buttonModifier
 
 @Composable
-fun RobotControlButton() {
-    var buttonText by remember { mutableStateOf("Run") }
+fun RobotControlButton(viewModel: ComponentViewModel) {
 
     Button(
         onClick = {
-            if(buttonText == "Run") {
-                SocketManager
-                buttonText = "Stop"
+            if(viewModel.getRobotStatus() == "Running") {
+                SocketManager.sendRequest(TokenEncoder.tokenPause())
+                viewModel.pauseRobot()
             } else {
-                buttonText = "Run"
+                //음성입력을 받아오는 동안은 반려.
+                SocketManager.sendRequest(TokenEncoder.tokenResume())
+                viewModel.resumeRobot()
             }
         },
         modifier = buttonModifier
     ){
-        Text(text = buttonText)
+        Text(text = viewModel.getRobotStatus())
     }
 }

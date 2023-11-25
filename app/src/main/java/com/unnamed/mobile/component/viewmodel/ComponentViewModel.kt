@@ -18,6 +18,9 @@ class ComponentViewModel : ViewModel() {
     private val _robot = mutableStateOf(Robot(Pair(0F, 0F)))
     private val robot: State<Robot> = _robot
 
+    private val _robotStatus = mutableStateOf("Running")
+    private val robotStatus: State<String> = _robotStatus
+
     fun addComponent(static: Static) {
         _statics.value = (statics.value + static) as MutableList<Static>
     }
@@ -67,6 +70,16 @@ class ComponentViewModel : ViewModel() {
 
     fun getDynamics(): MutableList<Dynamic> {
         return mutableListOf(_robot.value)
+    }
+
+    fun pauseRobot() {
+        _robotStatus.value = "Stopped"
+    }
+    fun resumeRobot() {
+        _robotStatus.value = "Running"
+    }
+    fun getRobotStatus(): String {
+        return _robotStatus.value
     }
 
 }
