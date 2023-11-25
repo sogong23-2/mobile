@@ -9,6 +9,7 @@ object MapUiManager {
     val componentViewModel = ComponentViewModel()
 
     var robot: Robot = Robot(Pair(4F, 5F))
+    var working: Boolean = true
 
     private val statics: MutableList<Static> = mutableListOf(
         Blob(Pair(0, 0)),
@@ -24,6 +25,7 @@ object MapUiManager {
     }
 
     fun uploadMap() {
+        componentViewModel.clearComponents()
         componentViewModel.initComponent(statics, robot)
         robot.location = componentViewModel.getRobotLocation()
     }
@@ -103,6 +105,10 @@ object MapUiManager {
 
     private fun pairToFloat(pair: Pair<Int, Int>): Pair<Float, Float> {
         return Pair(pair.first.toFloat(), pair.second.toFloat())
+    }
+
+    fun isRobotWorking(): Boolean {
+        return working
     }
 
 

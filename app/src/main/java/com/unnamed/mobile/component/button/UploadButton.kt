@@ -36,7 +36,7 @@ fun UploadButton(onQuit: () -> Unit) {
 
 fun showDialog(context: Context) {
     //TODO remove
-    val map: MapDo = TokenDecoder.uploadMap("m7,6/r0,0/b1,5/b2,2/h1,1/t4,5/")
+    val map: MapDo = TokenDecoder.uploadMap("UML/m7,6/r0,0/b1,5/b2,2/h1,1/t4,5/")
 
     val builder = AlertDialog.Builder(context)
     builder.setTitle("지도 입력 방법")

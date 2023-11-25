@@ -1,22 +1,19 @@
 package com.unnamed.mobile.component.view
 
 import MapViewer
-import android.app.Activity
-import android.content.Context
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.core.app.ActivityCompat.recreate
 import com.unnamed.mobile.component.UploadButton
 import com.unnamed.mobile.component.button.BackButton
 import com.unnamed.mobile.component.button.MoveDebugButton
 import com.unnamed.mobile.component.button.NlpButton
+import com.unnamed.mobile.component.button.RobotControlButton
 import com.unnamed.mobile.component.viewmodel.ComponentViewModel
 import com.unnamed.mobile.ui.theme.UnnamedmobileTheme
 
@@ -57,11 +54,12 @@ fun GuiView(viewModel: ComponentViewModel, recreateActivity: () -> Unit) {
                     Row {
                         UploadButton(recreateActivity)
                         Box(modifier = Modifier.size(30.dp))
-                        NlpButton()
+                        NlpButton(viewModel)
                     }
 
                     BackButton()
                     MoveDebugButton()
+                    RobotControlButton(viewModel)
                 }
             }
         }
