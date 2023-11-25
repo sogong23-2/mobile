@@ -36,7 +36,7 @@ object TokenEncoder {
         }
         return token
     }
-    fun staticToToken(static: Static): String {
+    private fun staticToToken(static: Static): String {
         return when(static){
             is Blob -> {
                 "b${static.location.first},${static.location.second}/"
