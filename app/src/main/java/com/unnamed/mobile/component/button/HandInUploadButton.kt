@@ -1,3 +1,5 @@
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -5,11 +7,12 @@ import androidx.compose.material.icons.filled.Upload
 import androidx.compose.runtime.*
 import com.unnamed.mobile.api.TokenDecoder
 import com.unnamed.mobile.component.model.MapDo
+import com.unnamed.mobile.component.view.MapUiManager
 import com.unnamed.mobile.ui.theme.buttonModifier
 import com.unnamed.mobile.ui.theme.iconModifier
 
 @Composable
-fun HandInUploadButton(onSubmit: (MapDo) -> Unit) {
+fun HandInUploadButton(onSubmit: (MapDo) -> Unit, applicationContext: Context) {
     var mapSize by remember { mutableStateOf("") }
     var robotLocation by remember { mutableStateOf("") }
     var targetPoints by remember { mutableStateOf("") }
@@ -33,19 +36,21 @@ fun HandInUploadButton(onSubmit: (MapDo) -> Unit) {
                         && verifyHazard(hazardPoints)
 
                     ) {
+                        val parsedMapSize = mapSize
+                        val parsedRobotLocation = robotLocation
+                        val parsedTargetPoints = targetPoints
+                        val parsedBlobPoints = blobPoints
+                        val parsedHazardPoints = hazardPoints
 
+                        val map =
+                            "ULM/$parsedMapSize$parsedRobotLocation$parsedTargetPoints$parsedBlobPoints$parsedHazardPoints"
+
+                        onSubmit(TokenDecoder.uploadMap(map))
+                        showDialog = false
+                    }else{
+                        Toast.makeText(applicationContext, "양식에 맞춰 입력하시오", Toast.LENGTH_SHORT).show()
                     }
-                    val parsedMapSize = mapSize
-                    val parsedRobotLocation = robotLocation
-                    val parsedTargetPoints = targetPoints
-                    val parsedBlobPoints = blobPoints
-                    val parsedHazardPoints = hazardPoints
 
-                    val map =
-                        "ULM/$parsedMapSize$parsedRobotLocation$parsedTargetPoints$parsedBlobPoints$parsedHazardPoints"
-
-                    onSubmit(TokenDecoder.uploadMap(map))
-                    showDialog = false
                 }) {
                     Text("Submit")
                 }

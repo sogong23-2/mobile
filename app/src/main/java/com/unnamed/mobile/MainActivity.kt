@@ -11,9 +11,7 @@ import androidx.core.app.ActivityCompat
 import com.unnamed.mobile.processor.NlpInitializer
 import com.unnamed.mobile.component.view.GuiView
 import com.unnamed.mobile.component.view.MapUiManager
-import com.unnamed.mobile.component.viewmodel.ComponentViewModel
 import com.unnamed.mobile.processor.NlpProcessor
-import com.unnamed.mobile.ui.theme.UnnamedmobileTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +39,7 @@ class MainActivity : ComponentActivity() {
         }
 
         setContent {
-            GuiView(viewModel = MapUiManager.componentViewModel) { recreate() }
+            GuiView(viewModel = MapUiManager.componentViewModel, applicationContext) { recreate() }
         }
     }
 
@@ -50,7 +48,7 @@ class MainActivity : ComponentActivity() {
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    GuiView(viewModel = MapUiManager.componentViewModel) {recreate()}
+//    GuiView(viewModel = MapUiManager.componentViewModel) {recreate()}
 }
 
 fun recreate() {}

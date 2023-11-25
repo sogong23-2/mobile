@@ -2,6 +2,7 @@ package com.unnamed.mobile.component.view
 
 import HandInUploadButton
 import MapViewer
+import android.content.Context
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
@@ -19,7 +20,7 @@ import com.unnamed.mobile.component.viewmodel.ComponentViewModel
 import com.unnamed.mobile.ui.theme.UnnamedmobileTheme
 
 @Composable
-fun GuiView(viewModel: ComponentViewModel, recreateActivity: () -> Unit) {
+fun GuiView(viewModel: ComponentViewModel, context: Context, recreateActivity: () -> Unit) {
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp.dp
     val screenHeight = configuration.screenHeightDp.dp
@@ -53,7 +54,7 @@ fun GuiView(viewModel: ComponentViewModel, recreateActivity: () -> Unit) {
                     Row {
                         UploadButton(recreateActivity)
                         Box(modifier = Modifier.size(30.dp))
-                        HandInUploadButton(onSubmit = {MapUiManager.initMap(it)})
+                        HandInUploadButton(onSubmit = {MapUiManager.initMap(it)}, applicationContext = context)
                         Box(modifier = Modifier.size(30.dp))
                         NlpButton(viewModel)
                     }
