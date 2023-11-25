@@ -1,5 +1,6 @@
 package com.unnamed.mobile.component.view
 
+import InputWindow
 import MapViewer
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -60,6 +61,9 @@ fun GuiView(viewModel: ComponentViewModel, recreateActivity: () -> Unit) {
                     BackButton()
                     MoveDebugButton()
                     RobotControlButton(viewModel)
+                    InputWindow(onSubmit = {
+                        MapUiManager.initMap(it)
+                    })
                 }
             }
         }
