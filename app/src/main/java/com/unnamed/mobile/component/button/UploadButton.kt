@@ -6,9 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Autorenew
 import androidx.compose.material.icons.filled.CloudUpload
-import androidx.compose.material.icons.filled.Upload
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import com.unnamed.mobile.api.*
@@ -21,7 +19,13 @@ import kotlinx.coroutines.runBlocking
 @Composable
 fun UploadButton(onQuit: () -> Unit) {
     val context = LocalContext.current
-    val map: MapDo = TokenDecoder.uploadMap("ULM/m7,6/r0,0/b1,5/b2,2/h1,1/t4,5/")
+    val map: MapDo = MapDo(
+        Pair(7, 6),
+        Pair(0, 0),
+        mutableListOf(Pair(1, 5), Pair(2, 2)),
+        mutableListOf(Pair(1, 1)),
+        mutableListOf(Pair(4, 5))
+    )
 
     Button(
         onClick = { showDialog(context) },
@@ -39,7 +43,7 @@ fun UploadButton(onQuit: () -> Unit) {
 
 fun showDialog(context: Context) {
     //TODO remove
-    val map: MapDo = TokenDecoder.uploadMap("UML/m7,6/r0,0/b1,5/b2,2/h1,1/t4,5/")
+    val map: MapDo = TokenDecoder.uploadMapDo("UML/m7,6/r0,0/b1,5/b2,2/h1,1/t4,5/")
 
     val builder = AlertDialog.Builder(context)
     builder.setTitle("지도 기본값으로 업로드")

@@ -9,7 +9,6 @@ import com.unnamed.mobile.api.SocketManager
 import com.unnamed.mobile.api.TokenDecoder
 import com.unnamed.mobile.api.TokenEncoder
 import com.unnamed.mobile.component.model.MapDo
-import com.unnamed.mobile.component.view.MapUiManager
 import com.unnamed.mobile.ui.theme.buttonModifier
 import com.unnamed.mobile.ui.theme.iconModifier
 import kotlinx.coroutines.runBlocking
@@ -48,7 +47,7 @@ fun HandInUploadButton(onSubmit: (MapDo) -> Unit, applicationContext: Context) {
                         val map =
                             "ULM/$parsedMapSize$parsedRobotLocation$parsedTargetPoints$parsedBlobPoints$parsedHazardPoints"
 
-                        onSubmit(TokenDecoder.uploadMap(map))
+                        onSubmit(TokenDecoder.uploadMapDo(map))
                         runBlocking {
                             val response = SocketManager.sendRequest(TokenEncoder.tokenMapInit())
                         }

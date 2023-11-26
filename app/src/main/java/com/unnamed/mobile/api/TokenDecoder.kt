@@ -47,7 +47,7 @@ object TokenDecoder {
         return statics
     }
 
-    fun uploadMap(stream: String): MapDo {
+    fun uploadMapDo(stream: String): MapDo {
         var mapSize: Pair<Int, Int> = Pair(0, 0)
         var robot: Pair<Int, Int> = Pair(0, 0)
         var blobs: MutableList<Pair<Int, Int>> = mutableListOf()
