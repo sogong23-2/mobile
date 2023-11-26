@@ -43,7 +43,7 @@ class SocketInstance(private val responseListener: ResponseListener) {
 
     //TODO change init settings
     private val port = 5001
-    private val destinationIP = "172.30.121.242"
+    private val destinationIP = "192.168.0.110"
     private val destinationPort = 5002
 
 
