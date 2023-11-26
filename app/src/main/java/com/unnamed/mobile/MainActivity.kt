@@ -32,13 +32,8 @@ class MainActivity : ComponentActivity() {
         MapUiManager.uploadMap()
 
         val nlpInitializer = NlpInitializer()
-        NlpProcessor.setIntent(nlpInitializer.initSpeechIntent(packageName = packageName))
+        NlpProcessor.setIntent(nlpInitializer)
         NlpProcessor.setListener(nlpInitializer.initSpeechListener(applicationContext))
-
-
-        fun onClickNlp() {
-            NlpProcessor.startListening(this@MainActivity)
-        }
 
         setContent {
             GuiView(viewModel = MapUiManager.viewModel, applicationContext) { recreate() }
