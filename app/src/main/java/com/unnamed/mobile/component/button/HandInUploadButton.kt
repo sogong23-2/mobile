@@ -7,7 +7,6 @@ import androidx.compose.material.icons.filled.Upload
 import androidx.compose.runtime.*
 import com.unnamed.mobile.api.SocketManager
 import com.unnamed.mobile.api.TokenDecoder
-import com.unnamed.mobile.api.TokenEncoder
 import com.unnamed.mobile.component.model.MapDo
 import com.unnamed.mobile.ui.theme.buttonModifier
 import com.unnamed.mobile.ui.theme.iconModifier
@@ -31,11 +30,11 @@ fun HandInUploadButton(onSubmit: (MapDo) -> Unit, applicationContext: Context) {
             confirmButton = {
                 Button(onClick = {
                     if (
-                        verifyRobot(robotLocation)
-                        && verifyMap(mapSize)
-                        && verifyTargets(targetPoints)
-                        && verifyBlob(blobPoints)
-                        && verifyHazard(hazardPoints)
+                        UserInputHandler.verifyRobot(robotLocation)
+                        && UserInputHandler.verifyMap(mapSize)
+                        && UserInputHandler.verifyTargets(targetPoints)
+                        && UserInputHandler.verifyBlob(blobPoints)
+                        && UserInputHandler.verifyHazard(hazardPoints)
 
                     ) {
                         val parsedMapSize = mapSize
@@ -47,7 +46,7 @@ fun HandInUploadButton(onSubmit: (MapDo) -> Unit, applicationContext: Context) {
                         val map =
                             "ULM/$parsedMapSize$parsedRobotLocation$parsedTargetPoints$parsedBlobPoints$parsedHazardPoints"
 
-                        onSubmit(TokenDecoder.uploadMapDo(map))
+                        onSubmit(UserInputHandler.stringToMapDo(map))
                         runBlocking {
                             val response = SocketManager.initRequest()
                         }
@@ -98,22 +97,78 @@ fun HandInUploadButton(onSubmit: (MapDo) -> Unit, applicationContext: Context) {
     }
 }
 
-private fun verifyMap(mapSize: String): Boolean {
-    return mapSize.matches(Regex("m[0-9]+,[0-9]+/"))
+object UserInputHandler{
+    fun verifyMap(mapSize: String): Boolean {
+        return mapSize.matches(Regex("m[0-9]+,[0-9]+/"))
+    }
+
+    fun verifyRobot(robotLocation: String): Boolean {
+        return robotLocation.matches(Regex("r[0-9]+,[0-9]+/"))
+    }
+
+    fun verifyTargets(targetPoints: String): Boolean {
+        return targetPoints.matches(Regex("(t[0-9]+,[0-9]+/)*"))
+    }
+
+    fun verifyBlob(blobPoints: String): Boolean {
+        return blobPoints.matches(Regex("(b[0-9]+,[0-9]+/)*"))
+    }
+
+    fun verifyHazard(hazardPoints: String): Boolean {
+        return hazardPoints.matches(Regex("(h[0-9]+,[0-9]+/)*"))
+    }
+
+    private fun parseToToken(data: String): List<String> {
+        val tokens = mutableListOf<String>()
+        var currentIndex = 4
+
+        while (currentIndex < data.length) {
+            val nextIndex = data.indexOf('/', currentIndex)
+            if (nextIndex != -1) {
+                val substring = data.substring(currentIndex, nextIndex + 1)
+                tokens.add(substring)
+                currentIndex = nextIndex + 1
+            } else {
+                break
+            }
+        }
+
+        return tokens
+    }
+
+    fun stringToMapDo(stream: String): MapDo {
+        var mapSize: Pair<Int, Int> = Pair(0, 0)
+        var robot: Pair<Int, Int> = Pair(0, 0)
+        var blobs: MutableList<Pair<Int, Int>> = mutableListOf()
+        var hazards: MutableList<Pair<Int, Int>> = mutableListOf()
+        var targetPoints: MutableList<Pair<Int, Int>> = mutableListOf()
+
+        for (token in parseToToken(stream)) {
+
+            val type = token[0]
+            val payload = token.substring(1, token.length - 1)
+            val coordination = payload.split(",")
+
+            when (type) {
+                'm' -> {
+                    mapSize = Pair(coordination[0].toInt(), coordination[1].toInt())
+                }
+                'r' -> {
+                    robot = Pair(coordination[0].toInt(), coordination[1].toInt())
+                }
+                'b' -> {
+                    blobs.add(Pair(coordination[0].toInt(), coordination[1].toInt()))
+                }
+                'h' -> {
+                    hazards.add(Pair(coordination[0].toInt(), coordination[1].toInt()))
+                }
+                't' -> {
+                    targetPoints.add(Pair(coordination[0].toInt(), coordination[1].toInt()))
+                }
+            }
+        }
+
+        return MapDo(mapSize, robot, blobs, hazards, targetPoints)
+    }
 }
 
-private fun verifyRobot(robotLocation: String): Boolean {
-    return robotLocation.matches(Regex("r[0-9]+,[0-9]+/"))
-}
-
-private fun verifyTargets(targetPoints: String): Boolean {
-    return targetPoints.matches(Regex("(t[0-9]+,[0-9]+/)*"))
-}
-
-private fun verifyBlob(blobPoints: String): Boolean {
-    return blobPoints.matches(Regex("(b[0-9]+,[0-9]+/)*"))
-}
-
-private fun verifyHazard(hazardPoints: String): Boolean {
-    return hazardPoints.matches(Regex("(h[0-9]+,[0-9]+/)*"))
-}
