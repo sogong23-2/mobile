@@ -25,7 +25,7 @@ fun NlpButton(viewModel: ComponentViewModel) {
                 withContext(Dispatchers.Main) {
                     viewModel.pauseRobot()
                     runBlocking {
-                        SocketManager.sendRequest(TokenEncoder.tokenPause())
+                        SocketManager.pauseRequest()
                     }
                     NlpProcessor.startListening(context)
                 }

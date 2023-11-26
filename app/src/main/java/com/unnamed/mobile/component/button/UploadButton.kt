@@ -52,7 +52,7 @@ fun showDialog(context: Context) {
     builder.setPositiveButton("업로드") { _, _ ->
         MapUiManager.autoInit()
         runBlocking {
-            SocketManager.sendRequest(TokenEncoder.tokenMapInit())
+            SocketManager.initRequest()
         }
     }
 

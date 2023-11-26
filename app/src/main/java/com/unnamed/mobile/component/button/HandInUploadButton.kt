@@ -49,7 +49,7 @@ fun HandInUploadButton(onSubmit: (MapDo) -> Unit, applicationContext: Context) {
 
                         onSubmit(TokenDecoder.uploadMapDo(map))
                         runBlocking {
-                            val response = SocketManager.sendRequest(TokenEncoder.tokenMapInit())
+                            val response = SocketManager.initRequest()
                         }
                         showDialog = false
                     } else {

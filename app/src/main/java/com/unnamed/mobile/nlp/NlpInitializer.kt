@@ -69,7 +69,7 @@ class NlpInitializer {
                     p0.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION) as ArrayList<String>
                 Toast.makeText(applicationContext, matches.toString(), Toast.LENGTH_SHORT).show();
                 runBlocking {
-                    SocketManager.sendRequest(TokenEncoder.tokenStaticUpdated(matches))
+                    SocketManager.updateRequest(matches)
                 }
             }
 

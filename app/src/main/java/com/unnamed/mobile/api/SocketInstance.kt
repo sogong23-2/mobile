@@ -20,7 +20,7 @@ interface ResponseListener {
 
 object SocketManager {
 
-    suspend fun sendRequest(data: String) = suspendCoroutine<Unit> { continuation ->
+    private suspend fun sendRequest(data: String) = suspendCoroutine<Unit> { continuation ->
 
         val responseListener = object : ResponseListener {
             override fun onResponseReceived(response: String) {
@@ -31,6 +31,19 @@ object SocketManager {
         socket.clientMode(data)
 
         continuation.resumeWith(Result.success(Unit))
+    }
+
+    suspend fun pauseRequest(){
+        sendRequest(TokenEncoder.tokenPause())
+    }
+    suspend fun resumeRequest(){
+        sendRequest(TokenEncoder.tokenResume())
+    }
+    suspend fun updateRequest(statics: List<String>){
+        sendRequest(TokenEncoder.tokenStaticUpdated(statics))
+    }
+    suspend fun initRequest(){
+        sendRequest(TokenEncoder.tokenMapInit())
     }
 
     fun openServer() {

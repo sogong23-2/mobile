@@ -19,13 +19,13 @@ fun RobotControlButton(viewModel: ComponentViewModel) {
         onClick = {
             if(viewModel.getRobotStatus() == "Running") {
                 runBlocking {
-                    SocketManager.sendRequest(TokenEncoder.tokenPause())
+                    SocketManager.pauseRequest()
                 }
                 viewModel.pauseRobot()
             } else {
                 //음성입력을 받아오는 동안은 반려.
                 runBlocking {
-                    SocketManager.sendRequest(TokenEncoder.tokenResume())
+                    SocketManager.resumeRequest()
                 }
                 viewModel.resumeRobot()
             }
