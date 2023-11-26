@@ -16,6 +16,7 @@ import com.unnamed.mobile.component.model.MapDo
 import com.unnamed.mobile.component.view.MapUiManager
 import com.unnamed.mobile.ui.theme.buttonModifier
 import com.unnamed.mobile.ui.theme.iconModifier
+import kotlinx.coroutines.runBlocking
 
 @Composable
 fun UploadButton(onQuit: () -> Unit) {
@@ -49,7 +50,9 @@ fun showDialog(context: Context) {
 
     builder.setPositiveButton("업로드") { _, _ ->
         MapUiManager.autoInit()
-        SocketManager.sendRequest(TokenEncoder.tokenMapInit())
+        runBlocking {
+            SocketManager.sendRequest(TokenEncoder.tokenMapInit())
+        }
     }
 
     builder.show()

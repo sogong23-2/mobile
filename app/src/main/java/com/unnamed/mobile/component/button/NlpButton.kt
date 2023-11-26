@@ -24,7 +24,9 @@ fun NlpButton(viewModel: ComponentViewModel) {
             CoroutineScope(GlobalScope.coroutineContext).launch {
                 withContext(Dispatchers.Main) {
                     viewModel.pauseRobot()
-                    SocketManager.sendRequest(TokenEncoder.tokenPause())
+                    runBlocking {
+                        SocketManager.sendRequest(TokenEncoder.tokenPause())
+                    }
                     NlpProcessor.startListening(context)
                 }
             }

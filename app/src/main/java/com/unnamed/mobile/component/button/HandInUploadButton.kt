@@ -12,6 +12,7 @@ import com.unnamed.mobile.component.model.MapDo
 import com.unnamed.mobile.component.view.MapUiManager
 import com.unnamed.mobile.ui.theme.buttonModifier
 import com.unnamed.mobile.ui.theme.iconModifier
+import kotlinx.coroutines.runBlocking
 
 @Composable
 fun HandInUploadButton(onSubmit: (MapDo) -> Unit, applicationContext: Context) {
@@ -48,10 +49,13 @@ fun HandInUploadButton(onSubmit: (MapDo) -> Unit, applicationContext: Context) {
                             "ULM/$parsedMapSize$parsedRobotLocation$parsedTargetPoints$parsedBlobPoints$parsedHazardPoints"
 
                         onSubmit(TokenDecoder.uploadMap(map))
-                        SocketManager.sendRequest(TokenEncoder.tokenMapInit())
+                        runBlocking {
+                            val response = SocketManager.sendRequest(TokenEncoder.tokenMapInit())
+                        }
                         showDialog = false
-                    }else{
-                        Toast.makeText(applicationContext, "양식에 맞춰 입력하시오", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(applicationContext, "양식에 맞춰 입력하시오", Toast.LENGTH_SHORT)
+                            .show()
                     }
 
                 }) {
@@ -98,15 +102,19 @@ fun HandInUploadButton(onSubmit: (MapDo) -> Unit, applicationContext: Context) {
 fun verifyMap(mapSize: String): Boolean {
     return mapSize.matches(Regex("m[0-9]+,[0-9]+/"))
 }
+
 fun verifyRobot(robotLocation: String): Boolean {
     return robotLocation.matches(Regex("r[0-9]+,[0-9]+/"))
 }
+
 fun verifyTargets(targetPoints: String): Boolean {
     return targetPoints.matches(Regex("(t[0-9]+,[0-9]+/)*"))
 }
+
 fun verifyBlob(blobPoints: String): Boolean {
     return blobPoints.matches(Regex("(b[0-9]+,[0-9]+/)*"))
 }
+
 fun verifyHazard(hazardPoints: String): Boolean {
     return hazardPoints.matches(Regex("(h[0-9]+,[0-9]+/)*"))
 }

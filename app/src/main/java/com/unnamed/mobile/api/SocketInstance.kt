@@ -8,6 +8,7 @@ import java.io.OutputStreamWriter
 import java.net.ServerSocket
 import java.net.Socket
 import java.nio.charset.StandardCharsets
+import kotlin.coroutines.suspendCoroutine
 
 private val receivedQueue = mutableListOf<String>()
 
@@ -19,8 +20,8 @@ interface ResponseListener {
 
 object SocketManager {
 
+    suspend fun sendRequest(data: String) = suspendCoroutine<Unit> { continuation ->
 
-    fun sendRequest(data: String) {
         val responseListener = object : ResponseListener {
             override fun onResponseReceived(response: String) {
                 println("response: $response")
@@ -28,6 +29,8 @@ object SocketManager {
         }
         val socket = SocketInstance(responseListener)
         socket.clientMode(data)
+
+        continuation.resumeWith(Result.success(Unit))
     }
 
     fun openServer() {
