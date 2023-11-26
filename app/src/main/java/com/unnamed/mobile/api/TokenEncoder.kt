@@ -23,7 +23,7 @@ object TokenEncoder {
         return token
     }
     fun tokenMapInit(): String {
-        var token: String = "UMG/"
+        var token: String = "ULM/"
         MapUiManager.mapSize.let {
             token += "m${it.first},${it.second}/"
         }
@@ -41,16 +41,16 @@ object TokenEncoder {
     private fun staticToToken(static: Static): String {
         return when(static){
             is Blob -> {
-                "b${static.location.first},${static.location.second}/\r"
+                "b${static.location.first},${static.location.second}/"
             }
             is Hazard -> {
-                "h${static.location.first},${static.location.second}/\r"
+                "h${static.location.first},${static.location.second}/"
             }
             is TargetPoint -> {
-                "t${static.location.first},${static.location.second}/\r"
+                "t${static.location.first},${static.location.second}/"
             }
             else -> {
-                "\r"
+                ""
             }
         }
     }

@@ -30,7 +30,6 @@ class MainActivity : ComponentActivity() {
         SocketManager.openServer()
 
         MapUiManager.uploadMap()
-        print("done?")
 
         val nlpInitializer = NlpInitializer()
         NlpProcessor.setIntent(nlpInitializer.initSpeechIntent(packageName = packageName))

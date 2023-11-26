@@ -12,13 +12,13 @@ import java.nio.charset.StandardCharsets
 private val receivedQueue = mutableListOf<String>()
 
 interface ResponseListener {
-    fun onResponseReceived(response: String){
+    fun onResponseReceived(response: String) {
         receivedQueue.add(response)
     }
 }
 
-object SocketManager{
-    fun sendRequest(data: String){
+object SocketManager {
+    fun sendRequest(data: String) {
         val responseListener = object : ResponseListener {
             override fun onResponseReceived(response: String) {
                 println("response: $response")
@@ -43,14 +43,15 @@ class SocketInstance(private val responseListener: ResponseListener) {
 
     //TODO change init settings
     private val port = 5001
-    private val destinationIP = "192.168.50.62"
+    private val destinationIP = "172.30.121.242"
     private val destinationPort = 5002
 
 
     fun serverMode() {
         Thread {
             val serverSocket = ServerSocket(port)
-            System.out.println("-----------------Server started, waiting for connections...")
+            System.out.println("-----------------Server started, waiting for connections..."
+                    + serverSocket.inetAddress.hostAddress)
 
             while (true) {
                 val clientSocket = serverSocket.accept()
@@ -85,7 +86,10 @@ class SocketInstance(private val responseListener: ResponseListener) {
 
             val reader = BufferedReader(InputStreamReader(clientSocket.getInputStream()))
             val response = reader.readLine()
-            responseListener.onResponseReceived(response)
+            if (response != "ACK") {
+                System.out.println("Error: $response")
+                //TODO handle error
+            }
 
             writer.close()
             reader.close()

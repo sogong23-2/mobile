@@ -67,7 +67,7 @@ class NlpInitializer {
                 }
                 val matches: ArrayList<String> =
                     p0.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION) as ArrayList<String>
-
+                Toast.makeText(applicationContext, matches.toString(), Toast.LENGTH_SHORT).show();
                 SocketManager.sendRequest(TokenEncoder.tokenStaticUpdated(matches))
             }
 

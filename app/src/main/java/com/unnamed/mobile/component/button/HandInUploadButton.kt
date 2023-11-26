@@ -5,7 +5,9 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Upload
 import androidx.compose.runtime.*
+import com.unnamed.mobile.api.SocketManager
 import com.unnamed.mobile.api.TokenDecoder
+import com.unnamed.mobile.api.TokenEncoder
 import com.unnamed.mobile.component.model.MapDo
 import com.unnamed.mobile.component.view.MapUiManager
 import com.unnamed.mobile.ui.theme.buttonModifier
@@ -46,6 +48,7 @@ fun HandInUploadButton(onSubmit: (MapDo) -> Unit, applicationContext: Context) {
                             "ULM/$parsedMapSize$parsedRobotLocation$parsedTargetPoints$parsedBlobPoints$parsedHazardPoints"
 
                         onSubmit(TokenDecoder.uploadMap(map))
+                        SocketManager.sendRequest(TokenEncoder.tokenMapInit())
                         showDialog = false
                     }else{
                         Toast.makeText(applicationContext, "양식에 맞춰 입력하시오", Toast.LENGTH_SHORT).show()
