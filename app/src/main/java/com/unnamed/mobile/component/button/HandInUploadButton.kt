@@ -98,22 +98,22 @@ fun HandInUploadButton(onSubmit: (MapDo) -> Unit, applicationContext: Context) {
     }
 }
 
-fun verifyMap(mapSize: String): Boolean {
+private fun verifyMap(mapSize: String): Boolean {
     return mapSize.matches(Regex("m[0-9]+,[0-9]+/"))
 }
 
-fun verifyRobot(robotLocation: String): Boolean {
+private fun verifyRobot(robotLocation: String): Boolean {
     return robotLocation.matches(Regex("r[0-9]+,[0-9]+/"))
 }
 
-fun verifyTargets(targetPoints: String): Boolean {
+private fun verifyTargets(targetPoints: String): Boolean {
     return targetPoints.matches(Regex("(t[0-9]+,[0-9]+/)*"))
 }
 
-fun verifyBlob(blobPoints: String): Boolean {
+private fun verifyBlob(blobPoints: String): Boolean {
     return blobPoints.matches(Regex("(b[0-9]+,[0-9]+/)*"))
 }
 
-fun verifyHazard(hazardPoints: String): Boolean {
+private fun verifyHazard(hazardPoints: String): Boolean {
     return hazardPoints.matches(Regex("(h[0-9]+,[0-9]+/)*"))
 }

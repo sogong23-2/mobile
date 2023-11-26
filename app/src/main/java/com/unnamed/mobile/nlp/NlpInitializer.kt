@@ -1,4 +1,4 @@
-package com.unnamed.mobile.processor
+package com.unnamed.mobile.nlp
 
 import android.content.Context
 import android.content.Intent
