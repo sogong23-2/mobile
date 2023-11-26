@@ -59,7 +59,7 @@ class ComponentViewModel : ViewModel() {
         coroutineScope {
             for (i in 1..100) {
                 moveRobot(dx, dy)
-                delay(10)
+                delay(6)
             }
         }
     }

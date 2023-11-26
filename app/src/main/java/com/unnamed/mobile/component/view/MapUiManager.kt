@@ -21,7 +21,9 @@ object MapUiManager {
 
     //TODO make change
     fun updateMap(addingStatics: List<Static>) {
-        statics.addAll(addingStatics)
+        for(static in addingStatics){
+            addComponent(static)
+        }
     }
 
     fun uploadMap() {

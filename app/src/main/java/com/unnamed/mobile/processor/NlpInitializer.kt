@@ -11,6 +11,7 @@ import com.unnamed.mobile.api.SocketManager
 import com.unnamed.mobile.api.TokenDecoder
 import com.unnamed.mobile.api.TokenEncoder
 import com.unnamed.mobile.component.view.MapUiManager
+import kotlinx.coroutines.runBlocking
 
 class NlpInitializer {
     fun initSpeechIntent(packageName: String): Intent {
@@ -67,8 +68,10 @@ class NlpInitializer {
                 }
                 val matches: ArrayList<String> =
                     p0.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION) as ArrayList<String>
-
-                SocketManager.sendRequest(TokenEncoder.tokenStaticUpdated(matches))
+                Toast.makeText(applicationContext, matches.toString(), Toast.LENGTH_SHORT).show();
+                runBlocking {
+                    SocketManager.sendRequest(TokenEncoder.tokenStaticUpdated(matches))
+                }
             }
 
             override fun onPartialResults(p0: Bundle?) {}
