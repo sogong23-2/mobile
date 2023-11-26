@@ -10,6 +10,7 @@ import com.unnamed.mobile.api.SocketManager
 import com.unnamed.mobile.api.TokenEncoder
 import com.unnamed.mobile.component.viewmodel.ComponentViewModel
 import com.unnamed.mobile.ui.theme.buttonModifier
+import kotlinx.coroutines.runBlocking
 
 @Composable
 fun RobotControlButton(viewModel: ComponentViewModel) {
@@ -17,11 +18,15 @@ fun RobotControlButton(viewModel: ComponentViewModel) {
     Button(
         onClick = {
             if(viewModel.getRobotStatus() == "Running") {
-                SocketManager.sendRequest(TokenEncoder.tokenPause())
+                runBlocking {
+                    SocketManager.sendRequest(TokenEncoder.tokenPause())
+                }
                 viewModel.pauseRobot()
             } else {
                 //음성입력을 받아오는 동안은 반려.
-                SocketManager.sendRequest(TokenEncoder.tokenResume())
+                runBlocking {
+                    SocketManager.sendRequest(TokenEncoder.tokenResume())
+                }
                 viewModel.resumeRobot()
             }
         },

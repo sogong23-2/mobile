@@ -3,27 +3,34 @@ package com.unnamed.mobile.api
 import kotlinx.coroutines.*
 import java.io.BufferedReader
 import java.io.InputStreamReader
+import java.io.OutputStream
 import java.io.OutputStreamWriter
 import java.net.ServerSocket
 import java.net.Socket
+import java.nio.charset.StandardCharsets
+import kotlin.coroutines.suspendCoroutine
 
 private val receivedQueue = mutableListOf<String>()
 
 interface ResponseListener {
-    fun onResponseReceived(response: String){
+    fun onResponseReceived(response: String) {
         receivedQueue.add(response)
     }
 }
 
-object SocketManager{
-    fun sendRequest(data: String){
+object SocketManager {
+
+    suspend fun sendRequest(data: String) = suspendCoroutine<Unit> { continuation ->
+
         val responseListener = object : ResponseListener {
             override fun onResponseReceived(response: String) {
                 println("response: $response")
             }
         }
-        val socket = CustomSocket(responseListener)
+        val socket = SocketInstance(responseListener)
         socket.clientMode(data)
+
+        continuation.resumeWith(Result.success(Unit))
     }
 
     fun openServer() {
@@ -32,23 +39,24 @@ object SocketManager{
                 println("response: $response")
             }
         }
-        val socket = CustomSocket(responseListener)
+        val socket = SocketInstance(responseListener)
         socket.serverMode()
     }
 }
 
-class CustomSocket(private val responseListener: ResponseListener) {
+class SocketInstance(private val responseListener: ResponseListener) {
 
     //TODO change init settings
-    private val port = 5000
-    private val destinationIP = "192.168.1.100"
-    private val destinationPort = 6000
+    private val port = 5001
+    private val destinationIP = "192.168.0.110"
+    private val destinationPort = 5002
 
 
     fun serverMode() {
         Thread {
             val serverSocket = ServerSocket(port)
-            println("Server started, waiting for connections...")
+            System.out.println("-----------------Server started, waiting for connections..."
+                    + serverSocket.inetAddress.hostAddress)
 
             while (true) {
                 val clientSocket = serverSocket.accept()
@@ -76,14 +84,17 @@ class CustomSocket(private val responseListener: ResponseListener) {
     fun clientMode(request: String) {
         Thread {
             val clientSocket = Socket(destinationIP, destinationPort)
-
-            val writer = OutputStreamWriter(clientSocket.getOutputStream())
+            val outputStream: OutputStream = clientSocket.getOutputStream()
+            val writer = OutputStreamWriter(outputStream, StandardCharsets.UTF_8)
             writer.write(request)
             writer.flush()
 
             val reader = BufferedReader(InputStreamReader(clientSocket.getInputStream()))
             val response = reader.readLine()
-            responseListener.onResponseReceived(response)
+            if (response != "ACK") {
+                System.out.println("Error: $response")
+                //TODO handle error
+            }
 
             writer.close()
             reader.close()
