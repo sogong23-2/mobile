@@ -11,12 +11,17 @@ object MapUiManager {
     var robot: Robot = Robot(Pair(4F, 5F))
     var working: Boolean = true
 
-    private val statics: MutableList<Static> = componentViewModel.getStatics()
+    private val statics: MutableList<Static> = mutableListOf(
+        Blob(Pair(0, 0)),
+        Hazard(Pair(1, 1)),
+        Blob(Pair(2, 2)),
+        TargetPoint(Pair(4, 1)),
+    )
 
 
     //TODO make change
     fun updateMap(addingStatics: List<Static>) {
-        for (static in addingStatics) {
+        for(static in addingStatics){
             addComponent(static)
         }
     }
