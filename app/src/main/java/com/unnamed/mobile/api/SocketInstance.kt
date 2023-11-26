@@ -19,6 +19,7 @@ interface ResponseListener {
 
 object SocketManager {
 
+
     fun sendRequest(data: String) {
         val responseListener = object : ResponseListener {
             override fun onResponseReceived(response: String) {
