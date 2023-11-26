@@ -6,7 +6,7 @@ import com.unnamed.mobile.component.viewmodel.ComponentViewModel
 object MapUiManager {
     //TODO 쓰이는 properties는 다 외부에서 정의할 수 있도록
     var mapSize: Pair<Int, Int> = Pair(7, 6)
-    val componentViewModel = ComponentViewModel()
+    val viewModel = ComponentViewModel()
 
     var robot: Robot = Robot(Pair(4F, 5F))
     var working: Boolean = true
@@ -27,9 +27,9 @@ object MapUiManager {
     }
 
     fun uploadMap() {
-        componentViewModel.clearComponents()
-        componentViewModel.initComponent(statics, robot, mapSize)
-        robot.location = componentViewModel.getRobotLocation()
+        viewModel.clearComponents()
+        viewModel.initComponent(statics, robot, mapSize)
+        robot.location = viewModel.getRobotLocation()
     }
 
     fun autoInit(){
@@ -83,10 +83,9 @@ object MapUiManager {
 
     private fun addComponent(static: Static) {
         statics.add(static)
-        componentViewModel.addComponent(static)
+        viewModel.addComponent(static)
     }
 
-    fun clearMap() {}
 
     fun getRobotLocation(): Pair<Float, Float> {
         return robot.location
@@ -97,7 +96,7 @@ object MapUiManager {
     }
 
     suspend fun moveRobot(next: Pair<Int, Int>) {
-        componentViewModel.moveRobotTo(next)
+        viewModel.moveRobotTo(next)
         robot.location = Pair(next.first.toFloat(), next.second.toFloat())
     }
 
@@ -108,11 +107,6 @@ object MapUiManager {
     private fun pairToFloat(pair: Pair<Int, Int>): Pair<Float, Float> {
         return Pair(pair.first.toFloat(), pair.second.toFloat())
     }
-
-    fun isRobotWorking(): Boolean {
-        return working
-    }
-
 
 }
 

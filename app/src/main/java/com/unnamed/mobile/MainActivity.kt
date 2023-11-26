@@ -41,7 +41,7 @@ class MainActivity : ComponentActivity() {
         }
 
         setContent {
-            GuiView(viewModel = MapUiManager.componentViewModel, applicationContext) { recreate() }
+            GuiView(viewModel = MapUiManager.viewModel, applicationContext) { recreate() }
         }
     }
 
