@@ -5,9 +5,8 @@ import android.content.Intent
 import android.speech.RecognitionListener
 import android.speech.SpeechRecognizer
 
-class NlpProcessor {
-    private val nlpInitializer = NlpInitializer()
-    private var intent: Intent = nlpInitializer.initSpeechIntent(packageName = packageName)
+object NlpProcessor {
+    private var intent: Intent? = null
     private var listener: RecognitionListener? = null
 
     //TODO NotNULL 보장해야한다.

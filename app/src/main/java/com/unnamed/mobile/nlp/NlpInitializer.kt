@@ -8,6 +8,7 @@ import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
 import android.widget.Toast
 import com.unnamed.mobile.api.SocketManager
+import com.unnamed.mobile.api.UserToSystem
 import com.unnamed.mobile.component.view.MapUiManager
 import kotlinx.coroutines.runBlocking
 
@@ -68,7 +69,7 @@ class NlpInitializer {
                     p0.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION) as ArrayList<String>
                 Toast.makeText(applicationContext, matches.toString(), Toast.LENGTH_SHORT).show();
                 runBlocking {
-                    SocketManager.updateRequest(matches)
+                    UserToSystem.updateRequest(matches)
                 }
             }
 

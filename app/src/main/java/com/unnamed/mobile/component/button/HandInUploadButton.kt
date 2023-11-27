@@ -5,8 +5,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Upload
 import androidx.compose.runtime.*
-import com.unnamed.mobile.api.SocketManager
-import com.unnamed.mobile.api.TokenDecoder
+import com.unnamed.mobile.api.UserToSystem
 import com.unnamed.mobile.component.model.MapDo
 import com.unnamed.mobile.ui.theme.buttonModifier
 import com.unnamed.mobile.ui.theme.iconModifier
@@ -48,7 +47,7 @@ fun HandInUploadButton(onSubmit: (MapDo) -> Unit, applicationContext: Context) {
 
                         onSubmit(UserInputHandler.stringToMapDo(map))
                         runBlocking {
-                            val response = SocketManager.initRequest()
+                            val response = UserToSystem.initRequest()
                         }
                         showDialog = false
                     } else {

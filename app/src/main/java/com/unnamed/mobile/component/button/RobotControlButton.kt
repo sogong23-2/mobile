@@ -4,6 +4,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import com.unnamed.mobile.api.SocketManager
+import com.unnamed.mobile.api.UserToSystem
 import com.unnamed.mobile.component.viewmodel.ComponentViewModel
 import com.unnamed.mobile.ui.theme.buttonModifier
 import kotlinx.coroutines.runBlocking
@@ -15,13 +16,13 @@ fun RobotControlButton(viewModel: ComponentViewModel) {
         onClick = {
             if(viewModel.getRobotStatus() == "Running") {
                 runBlocking {
-                    SocketManager.pauseRequest()
+                    UserToSystem.pauseRequest()
                 }
                 viewModel.pauseRobot()
             } else {
                 //음성입력을 받아오는 동안은 반려.
                 runBlocking {
-                    SocketManager.resumeRequest()
+                    UserToSystem.resumeRequest()
                 }
                 viewModel.resumeRobot()
             }

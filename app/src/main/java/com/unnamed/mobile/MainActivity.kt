@@ -28,11 +28,10 @@ class MainActivity : ComponentActivity() {
         }
 
         SocketManager.openServer()
-
         MapUiManager.uploadMap()
 
         val nlpInitializer = NlpInitializer()
-        NlpProcessor.setIntent(nlpInitializer)
+        NlpProcessor.setIntent(nlpInitializer.initSpeechIntent(packageName = packageName))
         NlpProcessor.setListener(nlpInitializer.initSpeechListener(applicationContext))
 
         setContent {
