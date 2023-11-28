@@ -20,6 +20,7 @@ class NlpInitializer {
 
         return intent
     }
+
     fun initSpeechListener(applicationContext: Context): RecognitionListener {
         return object : RecognitionListener {
             override fun onReadyForSpeech(p0: Bundle?) {
@@ -57,7 +58,11 @@ class NlpInitializer {
 
                 //TODO NoMatch or Recogbusy -> 재시드
                 // 나머지에선 연결 끊는 통신 전송
-                Toast.makeText(applicationContext, "DEBUG:${MapUiManager.robot.location} --$message", Toast.LENGTH_SHORT).show();
+                Toast.makeText(
+                    applicationContext,
+                    "DEBUG:${MapUiManager.robot.location} --$message",
+                    Toast.LENGTH_SHORT
+                ).show();
             }
 
             override fun onResults(p0: Bundle?) {
@@ -67,9 +72,16 @@ class NlpInitializer {
                 }
                 val matches: ArrayList<String> =
                     p0.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION) as ArrayList<String>
-                Toast.makeText(applicationContext, matches.toString(), Toast.LENGTH_SHORT).show();
-                runBlocking {
-                    UserToSystem.updateRequest(matches)
+                if (validateMatches(matches) && matches.size == 2) {
+                    Toast.makeText(applicationContext, matches.toString(), Toast.LENGTH_SHORT)
+                        .show();
+                    val statics = speechToStatic(matches)
+                    runBlocking {
+                        UserToSystem.updateRequest(matches)
+                    }
+                }else{
+                    Toast.makeText(applicationContext, "\"위험 3-4\"와 같은 형식을 사용하세요", Toast.LENGTH_SHORT)
+                        .show();
                 }
             }
 
@@ -77,6 +89,53 @@ class NlpInitializer {
 
             override fun onEvent(p0: Int, p1: Bundle?) {}
 
+        }
+    }
+}
+
+fun validateMatches(matches: ArrayList<String>): Boolean {
+    if (matches.isEmpty()) {
+        return false
+    }
+    return when (matches[0]) {
+        "위험" -> {
+            true
+        }
+        "목표" -> {
+            true
+        }
+        "얼룩" -> {
+            true
+        }
+        else -> {
+            false
+        }
+    }
+}
+
+fun speechToStatic(matches: ArrayList<String>): List<String> {
+    var text = ""
+    return when (matches[0]) {
+        "위험" -> {
+            text += "h"
+            text += matches[1].replace("-", ",")
+            text += "/"
+            listOf(text)
+        }
+        "목표" -> {
+            text += "t"
+            text += matches[1].replace("-", ",")
+            text += "/"
+            listOf(text)
+        }
+        "얼룩" -> {
+            text += "b"
+            text += matches[1].replace("-", ",")
+            text += "/"
+            listOf(text)
+        }
+        else -> {
+            listOf("/")
         }
     }
 }
