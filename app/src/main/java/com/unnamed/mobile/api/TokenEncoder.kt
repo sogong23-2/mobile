@@ -20,6 +20,7 @@ object TokenEncoder {
             token += static
         }
         token += "\r"
+        System.out.println("hahaha/////////$token")
         return token
     }
     fun tokenMapInit(): String {

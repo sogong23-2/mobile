@@ -8,7 +8,12 @@ import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
 import android.widget.Toast
 import com.unnamed.mobile.api.SocketManager
+import com.unnamed.mobile.api.TokenEncoder
 import com.unnamed.mobile.api.UserToSystem
+import com.unnamed.mobile.component.model.Blob
+import com.unnamed.mobile.component.model.Hazard
+import com.unnamed.mobile.component.model.Static
+import com.unnamed.mobile.component.model.TargetPoint
 import com.unnamed.mobile.component.view.MapUiManager
 import kotlinx.coroutines.runBlocking
 
@@ -72,15 +77,15 @@ class NlpInitializer {
                 }
                 val matches: ArrayList<String> =
                     p0.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION) as ArrayList<String>
-                if (validateMatches(matches) && matches.size == 2) {
-                    Toast.makeText(applicationContext, matches.toString(), Toast.LENGTH_SHORT)
-                        .show();
+                if (validateMatches(matches) && matches.size == 1) {
                     val statics = speechToStatic(matches)
                     runBlocking {
-                        UserToSystem.updateRequest(matches)
+                        UserToSystem.updateRequest(statics)
                     }
+                    val staticObject: List<Static> = statics.map { getStatic(it) }
+                    MapUiManager.updateMap(staticObject)
                 }else{
-                    Toast.makeText(applicationContext, "\"위험 3-4\"와 같은 형식을 사용하세요", Toast.LENGTH_SHORT)
+                    Toast.makeText(applicationContext, "ERR: $matches received", Toast.LENGTH_SHORT)
                         .show();
                 }
             }
@@ -97,7 +102,7 @@ fun validateMatches(matches: ArrayList<String>): Boolean {
     if (matches.isEmpty()) {
         return false
     }
-    return when (matches[0]) {
+    return when (matches[0].substring(0, 2)) {
         "위험" -> {
             true
         }
@@ -113,24 +118,45 @@ fun validateMatches(matches: ArrayList<String>): Boolean {
     }
 }
 
+fun getStatic(statics: String): Static{
+    val type = statics[0]
+    val static = statics.substring(1,statics.length-1).split(",")
+    return when(type){
+        'h' -> {
+            Hazard(Pair(static[0].toInt(), static[1].toInt()))
+        }
+        't' -> {
+            TargetPoint(Pair(static[0].toInt(), static[1].toInt()))
+        }
+        'b' -> {
+            Blob(Pair(static[0].toInt(), static[1].toInt()))
+        }
+        else -> {
+            //This will never happen
+            Hazard(Pair(0,0))
+        }
+    }
+}
+
 fun speechToStatic(matches: ArrayList<String>): List<String> {
+    val match = matches[0].split(" ")
     var text = ""
-    return when (matches[0]) {
+    return when (match[0]) {
         "위험" -> {
             text += "h"
-            text += matches[1].replace("-", ",")
+            text += match[1].replace("-", ",")
             text += "/"
             listOf(text)
         }
         "목표" -> {
             text += "t"
-            text += matches[1].replace("-", ",")
+            text += match[1].replace("-", ",")
             text += "/"
             listOf(text)
         }
         "얼룩" -> {
             text += "b"
-            text += matches[1].replace("-", ",")
+            text += match[1].replace("-", ",")
             text += "/"
             listOf(text)
         }
