@@ -10,45 +10,11 @@ import java.net.Socket
 import java.nio.charset.StandardCharsets
 import kotlin.coroutines.suspendCoroutine
 
-private val receivedQueue = mutableListOf<String>()
-
-interface ResponseListener {
-    fun onResponseReceived(response: String) {
-        receivedQueue.add(response)
-    }
-}
-
-object SocketManager {
-
-    suspend fun sendRequest(data: String) = suspendCoroutine<Unit> { continuation ->
-
-        val responseListener = object : ResponseListener {
-            override fun onResponseReceived(response: String) {
-                println("response: $response")
-            }
-        }
-        val socket = SocketInstance(responseListener)
-        socket.clientMode(data)
-
-        continuation.resumeWith(Result.success(Unit))
-    }
-
-    fun openServer() {
-        val responseListener = object : ResponseListener {
-            override fun onResponseReceived(response: String) {
-                println("response: $response")
-            }
-        }
-        val socket = SocketInstance(responseListener)
-        socket.serverMode()
-    }
-}
-
 class SocketInstance(private val responseListener: ResponseListener) {
 
     //TODO change init settings
     private val port = 5001
-    private val destinationIP = "192.168.0.110"
+    private val destinationIP = "172.30.1.39"
     private val destinationPort = 5002
 
 
