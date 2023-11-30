@@ -68,10 +68,6 @@ class ComponentViewModel : ViewModel() {
         return statics.value
     }
 
-    fun renderDynamics() {
-        _robot.value = _robot.value
-    }
-
     fun getDynamics(): MutableList<Dynamic> {
         return mutableListOf(_robot.value)
     }

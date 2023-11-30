@@ -12,8 +12,6 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.unnamed.mobile.component.UploadButton
-import com.unnamed.mobile.component.button.BackButton
-import com.unnamed.mobile.component.button.MoveDebugButton
 import com.unnamed.mobile.component.button.NlpButton
 import com.unnamed.mobile.component.button.RobotControlButton
 import com.unnamed.mobile.component.viewmodel.ComponentViewModel
@@ -60,8 +58,6 @@ fun GuiView(viewModel: ComponentViewModel, context: Context, recreateActivity: (
                     }
                     Box(modifier = Modifier.size(20.dp))
                     Row {
-                        MoveDebugButton()
-                        Box(modifier = Modifier.size(30.dp))
                         RobotControlButton(viewModel)
                     }
                 }

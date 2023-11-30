@@ -1,4 +1,4 @@
-package com.unnamed.mobile.processor
+package com.unnamed.mobile.nlp
 
 import android.content.Context
 import android.content.Intent
@@ -8,8 +8,12 @@ import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
 import android.widget.Toast
 import com.unnamed.mobile.api.SocketManager
-import com.unnamed.mobile.api.TokenDecoder
 import com.unnamed.mobile.api.TokenEncoder
+import com.unnamed.mobile.api.UserToSystem
+import com.unnamed.mobile.component.model.Blob
+import com.unnamed.mobile.component.model.Hazard
+import com.unnamed.mobile.component.model.Static
+import com.unnamed.mobile.component.model.TargetPoint
 import com.unnamed.mobile.component.view.MapUiManager
 import kotlinx.coroutines.runBlocking
 
@@ -21,6 +25,7 @@ class NlpInitializer {
 
         return intent
     }
+
     fun initSpeechListener(applicationContext: Context): RecognitionListener {
         return object : RecognitionListener {
             override fun onReadyForSpeech(p0: Bundle?) {
@@ -58,7 +63,11 @@ class NlpInitializer {
 
                 //TODO NoMatch or Recogbusy -> 재시드
                 // 나머지에선 연결 끊는 통신 전송
-                Toast.makeText(applicationContext, "DEBUG:${MapUiManager.robot.location} --$message", Toast.LENGTH_SHORT).show();
+                Toast.makeText(
+                    applicationContext,
+                    "DEBUG:${MapUiManager.robot.location} --$message",
+                    Toast.LENGTH_SHORT
+                ).show();
             }
 
             override fun onResults(p0: Bundle?) {
@@ -68,9 +77,16 @@ class NlpInitializer {
                 }
                 val matches: ArrayList<String> =
                     p0.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION) as ArrayList<String>
-                Toast.makeText(applicationContext, matches.toString(), Toast.LENGTH_SHORT).show();
-                runBlocking {
-                    SocketManager.sendRequest(TokenEncoder.tokenStaticUpdated(matches))
+                if (validateMatches(matches) && matches.size == 1) {
+                    val statics = speechToStatic(matches)
+                    runBlocking {
+                        UserToSystem.updateRequest(statics)
+                    }
+                    val staticObject: List<Static> = statics.map { getStatic(it) }
+                    MapUiManager.updateMap(staticObject)
+                }else{
+                    Toast.makeText(applicationContext, "ERR: $matches received", Toast.LENGTH_SHORT)
+                        .show();
                 }
             }
 
@@ -78,6 +94,74 @@ class NlpInitializer {
 
             override fun onEvent(p0: Int, p1: Bundle?) {}
 
+        }
+    }
+}
+
+fun validateMatches(matches: ArrayList<String>): Boolean {
+    if (matches.isEmpty()) {
+        return false
+    }
+    return when (matches[0].substring(0, 2)) {
+        "위험" -> {
+            true
+        }
+        "목표" -> {
+            true
+        }
+        "얼룩" -> {
+            true
+        }
+        else -> {
+            false
+        }
+    }
+}
+
+fun getStatic(statics: String): Static{
+    val type = statics[0]
+    val static = statics.substring(1,statics.length-1).split(",")
+    return when(type){
+        'h' -> {
+            Hazard(Pair(static[0].toInt(), static[1].toInt()))
+        }
+        't' -> {
+            TargetPoint(Pair(static[0].toInt(), static[1].toInt()))
+        }
+        'b' -> {
+            Blob(Pair(static[0].toInt(), static[1].toInt()))
+        }
+        else -> {
+            //This will never happen
+            Hazard(Pair(0,0))
+        }
+    }
+}
+
+fun speechToStatic(matches: ArrayList<String>): List<String> {
+    val match = matches[0].split(" ")
+    var text = ""
+    return when (match[0]) {
+        "위험" -> {
+            text += "h"
+            text += match[1].replace("-", ",")
+            text += "/"
+            listOf(text)
+        }
+        "목표" -> {
+            text += "t"
+            text += match[1].replace("-", ",")
+            text += "/"
+            listOf(text)
+        }
+        "얼룩" -> {
+            text += "b"
+            text += match[1].replace("-", ",")
+            text += "/"
+            listOf(text)
+        }
+        else -> {
+            listOf("/")
         }
     }
 }

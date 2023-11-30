@@ -42,9 +42,6 @@ fun UploadButton(onQuit: () -> Unit) {
 }
 
 fun showDialog(context: Context) {
-    //TODO remove
-    val map: MapDo = TokenDecoder.uploadMapDo("UML/m7,6/r0,0/b1,5/b2,2/h1,1/t4,5/")
-
     val builder = AlertDialog.Builder(context)
     builder.setTitle("지도 기본값으로 업로드")
 
@@ -55,7 +52,7 @@ fun showDialog(context: Context) {
     builder.setPositiveButton("업로드") { _, _ ->
         MapUiManager.autoInit()
         runBlocking {
-            SocketManager.sendRequest(TokenEncoder.tokenMapInit())
+            UserToSystem.initRequest()
         }
     }
 

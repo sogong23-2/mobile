@@ -9,10 +9,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.app.ActivityCompat
 import com.unnamed.mobile.api.SocketManager
-import com.unnamed.mobile.processor.NlpInitializer
+import com.unnamed.mobile.nlp.NlpInitializer
 import com.unnamed.mobile.component.view.GuiView
 import com.unnamed.mobile.component.view.MapUiManager
-import com.unnamed.mobile.processor.NlpProcessor
+import com.unnamed.mobile.nlp.NlpProcessor
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,20 +28,14 @@ class MainActivity : ComponentActivity() {
         }
 
         SocketManager.openServer()
-
         MapUiManager.uploadMap()
 
         val nlpInitializer = NlpInitializer()
         NlpProcessor.setIntent(nlpInitializer.initSpeechIntent(packageName = packageName))
         NlpProcessor.setListener(nlpInitializer.initSpeechListener(applicationContext))
 
-
-        fun onClickNlp() {
-            NlpProcessor.startListening(this@MainActivity)
-        }
-
         setContent {
-            GuiView(viewModel = MapUiManager.componentViewModel, applicationContext) { recreate() }
+            GuiView(viewModel = MapUiManager.viewModel, applicationContext) { recreate() }
         }
     }
 
