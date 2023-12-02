@@ -2,7 +2,7 @@ package com.unnamed.mobile.api
 
 import com.unnamed.mobile.gui.MapUiManager
 
-object SocketHandler {
+object SocketHandler2 {
     suspend fun apiResolver(data: String) {
         val cmd = TokenDecoder.parseCmd(data)
         val tokens = TokenDecoder.parseToToken(data)
