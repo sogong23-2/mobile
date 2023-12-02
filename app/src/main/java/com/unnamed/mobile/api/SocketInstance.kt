@@ -8,7 +8,6 @@ import java.io.OutputStreamWriter
 import java.net.ServerSocket
 import java.net.Socket
 import java.nio.charset.StandardCharsets
-import kotlin.coroutines.suspendCoroutine
 
 class SocketInstance(private val responseListener: ResponseListener) {
 
