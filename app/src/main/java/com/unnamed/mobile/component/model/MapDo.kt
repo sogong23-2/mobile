@@ -6,5 +6,5 @@ data class MapDo(
     val blob: List<Pair<Int, Int>>,
     val hazard: List<Pair<Int, Int>>,
     val targetPoint: List<Pair<Int, Int>>,
-
+    val gray: List<Pair<Int, Int>>
 )

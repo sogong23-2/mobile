@@ -7,8 +7,6 @@ import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
 import android.widget.Toast
-import com.unnamed.mobile.api.SocketManager
-import com.unnamed.mobile.api.TokenEncoder
 import com.unnamed.mobile.api.UserToSystem
 import com.unnamed.mobile.component.model.Blob
 import com.unnamed.mobile.component.model.Hazard

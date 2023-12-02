@@ -19,13 +19,6 @@ import kotlinx.coroutines.runBlocking
 @Composable
 fun UploadButton(onQuit: () -> Unit) {
     val context = LocalContext.current
-    val map: MapDo = MapDo(
-        Pair(7, 6),
-        Pair(0, 0),
-        mutableListOf(Pair(1, 5), Pair(2, 2)),
-        mutableListOf(Pair(1, 1)),
-        mutableListOf(Pair(4, 5))
-    )
 
     Button(
         onClick = { showDialog(context) },

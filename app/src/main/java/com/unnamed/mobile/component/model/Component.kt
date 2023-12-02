@@ -35,5 +35,8 @@ class Hazard(location: Pair<Int, Int>): Static(location){
 }
 class TargetPoint(location: Pair<Int, Int>): Static(location){
     override val src = R.drawable.target
+}
 
+class Gray(location: Pair<Int, Int>): Static(location){
+    override val src = R.drawable.gray
 }

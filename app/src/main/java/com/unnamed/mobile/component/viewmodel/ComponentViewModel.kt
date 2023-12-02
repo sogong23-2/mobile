@@ -5,6 +5,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.unnamed.mobile.component.model.Dynamic
+import com.unnamed.mobile.component.model.Gray
 import com.unnamed.mobile.component.model.Robot
 import com.unnamed.mobile.component.model.Static
 import kotlinx.coroutines.Dispatchers
@@ -26,6 +27,9 @@ class ComponentViewModel : ViewModel() {
 
     fun addComponent(static: Static) {
         _statics.value = (statics.value + static) as MutableList<Static>
+    }
+    fun removeComponent(static: Static) {
+        _statics.value = (statics.value - static) as MutableList<Static>
     }
 
     fun clearComponents() {

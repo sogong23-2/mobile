@@ -5,6 +5,8 @@ object SocketManager {
 
     suspend fun sendRequest(data: String) = suspendCoroutine<Unit> { continuation ->
 
+
+        System.out.println("sendRequest -- tokens: $data")
         val responseListener = object : ResponseListener {
             override fun onResponseReceived(response: String) {
                 println("response: $response")

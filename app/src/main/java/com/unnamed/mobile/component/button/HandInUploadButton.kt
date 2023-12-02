@@ -167,7 +167,7 @@ object UserInputHandler{
             }
         }
 
-        return MapDo(mapSize, robot, blobs, hazards, targetPoints)
+        return MapDo(mapSize, robot, blobs, hazards, targetPoints, listOf())
     }
 }
 
