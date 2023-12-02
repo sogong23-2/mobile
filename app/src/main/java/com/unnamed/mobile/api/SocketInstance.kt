@@ -32,7 +32,7 @@ class SocketInstance(private val responseListener: ResponseListener) {
 
                 CoroutineScope(GlobalScope.coroutineContext).launch {
                     withContext(Dispatchers.Main) {
-                        SocketHandler2.apiResolver(request)
+                        SocketHandler.apiResolver(request)
                     }
                 }
 
