@@ -14,7 +14,7 @@ class SocketInstance(private val responseListener: ResponseListener) {
 
     //TODO change init settings
     private val port = 5001
-    private val destinationIP = "172.30.1.39"
+    private val destinationIP = "172.30.1.84"
     private val destinationPort = 5002
 
 
@@ -59,7 +59,6 @@ class SocketInstance(private val responseListener: ResponseListener) {
             val response = reader.readLine()
             if (response != "ACK") {
                 System.out.println("Error: $response")
-                //TODO handle error
             }
 
             writer.close()

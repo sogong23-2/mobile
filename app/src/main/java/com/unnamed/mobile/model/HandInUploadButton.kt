@@ -1,3 +1,5 @@
+package com.unnamed.mobile.model
+
 import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
@@ -6,7 +8,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Upload
 import androidx.compose.runtime.*
 import com.unnamed.mobile.api.UserToSystem
-import com.unnamed.mobile.component.model.MapDo
+import com.unnamed.mobile.model.MapDo
 import com.unnamed.mobile.ui.theme.buttonModifier
 import com.unnamed.mobile.ui.theme.iconModifier
 import kotlinx.coroutines.runBlocking
@@ -136,6 +138,7 @@ object UserInputHandler{
     }
 
     fun stringToMapDo(stream: String): MapDo {
+        //just init val
         var mapSize: Pair<Int, Int> = Pair(0, 0)
         var robot: Pair<Int, Int> = Pair(0, 0)
         var blobs: MutableList<Pair<Int, Int>> = mutableListOf()
@@ -167,7 +170,7 @@ object UserInputHandler{
             }
         }
 
-        return MapDo(mapSize, robot, blobs, hazards, targetPoints)
+        return MapDo(mapSize, robot, blobs, hazards, targetPoints, listOf())
     }
 }
 
