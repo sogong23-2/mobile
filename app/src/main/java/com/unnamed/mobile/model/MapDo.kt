@@ -12,7 +12,7 @@ data class MapDo(
 val mapDefault = MapDo(
     mapSize = Pair(5, 5),
     robot = Pair(0, 0),
-    blob = listOf(Pair(2, 2)),
+    blob = listOf(Pair(1, 2)),
     hazard = listOf(Pair(4, 1)),
     targetPoint = listOf(Pair(3, 4), Pair(1,4)),
     gray = listOf(Pair(3, 2))
