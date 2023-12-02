@@ -1,6 +1,6 @@
 package com.unnamed.mobile.api
 
-import com.unnamed.mobile.component.view.MapUiManager
+import com.unnamed.mobile.gui.MapUiManager
 
 object SocketHandler {
     suspend fun apiResolver(data: String) {

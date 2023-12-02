@@ -1,7 +1,7 @@
 package com.unnamed.mobile.api
 
-import com.unnamed.mobile.component.model.*
-import com.unnamed.mobile.component.view.MapUiManager
+import com.unnamed.mobile.model.model.*
+import com.unnamed.mobile.gui.MapUiManager
 
 object TokenDecoder {
     fun destinationMoved(tokens: List<String>): Pair<Int, Int> {

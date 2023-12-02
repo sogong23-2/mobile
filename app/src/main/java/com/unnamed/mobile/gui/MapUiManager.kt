@@ -1,27 +1,30 @@
-package com.unnamed.mobile.component.view
+package com.unnamed.mobile.gui
 
-import com.unnamed.mobile.component.model.*
-import com.unnamed.mobile.component.viewmodel.ComponentViewModel
+import com.unnamed.mobile.model.MapDo
+import com.unnamed.mobile.model.model.*
+import com.unnamed.mobile.model.ComponentViewModel
 
 object MapUiManager {
     //TODO 쓰이는 properties는 다 외부에서 정의할 수 있도록
-    var mapSize: Pair<Int, Int> = Pair(7, 6)
+    var mapSize: Pair<Int, Int> = Pair(5, 5)
     val viewModel = ComponentViewModel()
 
-    var robot: Robot = Robot(Pair(4F, 5F))
+    var robot: Robot = Robot(Pair(0F, 0F))
     var working: Boolean = true
 
     private val statics: MutableList<Static> = mutableListOf(
-        Blob(Pair(0, 0)),
+        Blob(Pair(1, 2)),
         Hazard(Pair(1, 1)),
         Blob(Pair(2, 2)),
-        TargetPoint(Pair(4, 1)),
+        TargetPoint(Pair(4, 2)),
+        Gray(Pair(4, 0)),
     )
 
 
     //TODO make change
     fun updateMap(addingStatics: List<Static>) {
         for(static in addingStatics){
+            removeGray(static)
             addComponent(static)
         }
     }
@@ -38,7 +41,8 @@ object MapUiManager {
             robot = Pair(0, 0),
             blob = listOf(Pair(1, 2), Pair(2, 2)),
             hazard = listOf(Pair(1, 1)),
-            targetPoint = listOf(Pair(4, 2))
+            targetPoint = listOf(Pair(4, 2)),
+            gray = listOf(Pair(4, 0))
         )
         initMap(map)
     }
@@ -46,7 +50,7 @@ object MapUiManager {
     fun initMap(map: MapDo) {
         mapSize = map.mapSize
         moveLocateInit(pairToFloat(map.robot))
-        initStatics(map.blob, map.hazard, map.targetPoint)
+        initStatics(map.blob, map.hazard, map.targetPoint, map.gray)
 
         uploadMap()
     }
@@ -54,7 +58,8 @@ object MapUiManager {
     fun initStatics(
         blobs: List<Pair<Int, Int>>,
         hazards: List<Pair<Int, Int>>,
-        targetPoints: List<Pair<Int, Int>>
+        targetPoints: List<Pair<Int, Int>>,
+        grays: List<Pair<Int, Int>>
     ) {
         statics.clear()
 
@@ -66,6 +71,9 @@ object MapUiManager {
         }
         for (hazard in hazards) {
             addComponent(toHazard(hazard))
+        }
+        for (gray in grays) {
+            addComponent(toGray(gray))
         }
 
     }
@@ -79,6 +87,9 @@ object MapUiManager {
     private fun toTargetPoint(location: Pair<Int, Int>): Static{
         return TargetPoint(location)
     }
+    private fun toGray(location: Pair<Int, Int>): Static{
+        return Gray(location)
+    }
 
 
     private fun addComponent(static: Static) {
@@ -86,6 +97,19 @@ object MapUiManager {
         viewModel.addComponent(static)
     }
 
+    private fun removeComponent(static: Static) {
+        statics.remove(static)
+        viewModel.removeComponent(static)
+    }
+
+    private fun removeGray(static: Static){
+        val grays = statics.filterIsInstance<Gray>()
+        for(gray in grays){
+            if(gray.location == static.location){
+                removeComponent(gray)
+            }
+        }
+    }
 
     fun getRobotLocation(): Pair<Float, Float> {
         return robot.location

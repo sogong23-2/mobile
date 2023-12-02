@@ -1,4 +1,4 @@
-package com.unnamed.mobile.component.model
+package com.unnamed.mobile.model
 
 data class MapDo(
     val mapSize: Pair<Int, Int>,
@@ -6,5 +6,5 @@ data class MapDo(
     val blob: List<Pair<Int, Int>>,
     val hazard: List<Pair<Int, Int>>,
     val targetPoint: List<Pair<Int, Int>>,
-
+    val gray: List<Pair<Int, Int>>
 )

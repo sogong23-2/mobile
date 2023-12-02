@@ -10,8 +10,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.app.ActivityCompat
 import com.unnamed.mobile.api.SocketManager
 import com.unnamed.mobile.nlp.NlpInitializer
-import com.unnamed.mobile.component.view.GuiView
-import com.unnamed.mobile.component.view.MapUiManager
+import com.unnamed.mobile.gui.GuiView
+import com.unnamed.mobile.gui.MapUiManager
 import com.unnamed.mobile.nlp.NlpProcessor
 
 class MainActivity : ComponentActivity() {
