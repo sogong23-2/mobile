@@ -3,22 +3,18 @@ package com.unnamed.mobile.gui
 import com.unnamed.mobile.model.MapDo
 import com.unnamed.mobile.model.model.*
 import com.unnamed.mobile.model.ComponentViewModel
+import com.unnamed.mobile.model.mapDefault
 
 object MapUiManager {
     //TODO 쓰이는 properties는 다 외부에서 정의할 수 있도록
-    var mapSize: Pair<Int, Int> = Pair(5, 5)
+    private val map = mapDefault
+    var mapSize: Pair<Int, Int> = map.mapSize
     val viewModel = ComponentViewModel()
 
-    var robot: Robot = Robot(Pair(0F, 0F))
+    var robot: Robot = Robot(Pair(map.robot.first.toFloat(), map.robot.second.toFloat()))
     var working: Boolean = true
 
-    private val statics: MutableList<Static> = mutableListOf(
-        Blob(Pair(1, 2)),
-        Hazard(Pair(1, 1)),
-        Blob(Pair(2, 2)),
-        TargetPoint(Pair(4, 2)),
-        Gray(Pair(4, 0)),
-    )
+    private val statics: MutableList<Static> = toStatics(map)
 
 
     //TODO make change
@@ -36,14 +32,7 @@ object MapUiManager {
     }
 
     fun autoInit(){
-        val map = MapDo(
-            mapSize = Pair(5, 5),
-            robot = Pair(0, 0),
-            blob = listOf(Pair(1, 2), Pair(2, 2)),
-            hazard = listOf(Pair(1, 1)),
-            targetPoint = listOf(Pair(4, 2)),
-            gray = listOf(Pair(4, 0))
-        )
+        val map = mapDefault
         initMap(map)
     }
 
@@ -132,5 +121,21 @@ object MapUiManager {
         return Pair(pair.first.toFloat(), pair.second.toFloat())
     }
 
+    private fun toStatics(map: MapDo): MutableList<Static>{
+        val statics = mutableListOf<Static>()
+        for(targetPoint in map.targetPoint){
+            statics.add(TargetPoint(targetPoint))
+        }
+        for(blob in map.blob){
+            statics.add(Blob(blob))
+        }
+        for(hazard in map.hazard){
+            statics.add(Hazard(hazard))
+        }
+        for(gray in map.gray){
+            statics.add(Gray(gray))
+        }
+        return statics
+    }
 }
 

@@ -138,6 +138,7 @@ object UserInputHandler{
     }
 
     fun stringToMapDo(stream: String): MapDo {
+        //just init val
         var mapSize: Pair<Int, Int> = Pair(0, 0)
         var robot: Pair<Int, Int> = Pair(0, 0)
         var blobs: MutableList<Pair<Int, Int>> = mutableListOf()
