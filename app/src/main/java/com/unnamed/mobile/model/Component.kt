@@ -1,4 +1,4 @@
-package com.unnamed.mobile.component.model
+package com.unnamed.mobile.model.model
 
 import com.unnamed.mobile.R
 

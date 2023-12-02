@@ -1,4 +1,4 @@
-package com.unnamed.mobile.component
+package com.unnamed.mobile.model
 
 import android.app.AlertDialog
 import android.content.Context
@@ -10,8 +10,7 @@ import androidx.compose.material.icons.filled.CloudUpload
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import com.unnamed.mobile.api.*
-import com.unnamed.mobile.component.model.MapDo
-import com.unnamed.mobile.component.view.MapUiManager
+import com.unnamed.mobile.gui.MapUiManager
 import com.unnamed.mobile.ui.theme.buttonModifier
 import com.unnamed.mobile.ui.theme.iconModifier
 import kotlinx.coroutines.runBlocking

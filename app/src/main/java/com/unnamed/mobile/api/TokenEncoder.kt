@@ -1,10 +1,10 @@
 package com.unnamed.mobile.api
 
-import com.unnamed.mobile.component.model.Blob
-import com.unnamed.mobile.component.model.Hazard
-import com.unnamed.mobile.component.model.Static
-import com.unnamed.mobile.component.model.TargetPoint
-import com.unnamed.mobile.component.view.MapUiManager
+import com.unnamed.mobile.model.model.Blob
+import com.unnamed.mobile.model.model.Hazard
+import com.unnamed.mobile.model.model.Static
+import com.unnamed.mobile.model.model.TargetPoint
+import com.unnamed.mobile.gui.MapUiManager
 
 object TokenEncoder {
     fun tokenPause(): String {

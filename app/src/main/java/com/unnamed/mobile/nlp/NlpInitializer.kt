@@ -8,11 +8,11 @@ import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
 import android.widget.Toast
 import com.unnamed.mobile.api.UserToSystem
-import com.unnamed.mobile.component.model.Blob
-import com.unnamed.mobile.component.model.Hazard
-import com.unnamed.mobile.component.model.Static
-import com.unnamed.mobile.component.model.TargetPoint
-import com.unnamed.mobile.component.view.MapUiManager
+import com.unnamed.mobile.model.model.Blob
+import com.unnamed.mobile.model.model.Hazard
+import com.unnamed.mobile.model.model.Static
+import com.unnamed.mobile.model.model.TargetPoint
+import com.unnamed.mobile.gui.MapUiManager
 import kotlinx.coroutines.runBlocking
 
 class NlpInitializer {

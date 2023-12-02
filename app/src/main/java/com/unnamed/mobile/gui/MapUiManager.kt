@@ -1,7 +1,8 @@
-package com.unnamed.mobile.component.view
+package com.unnamed.mobile.gui
 
-import com.unnamed.mobile.component.model.*
-import com.unnamed.mobile.component.viewmodel.ComponentViewModel
+import com.unnamed.mobile.model.MapDo
+import com.unnamed.mobile.model.model.*
+import com.unnamed.mobile.model.ComponentViewModel
 
 object MapUiManager {
     //TODO 쓰이는 properties는 다 외부에서 정의할 수 있도록

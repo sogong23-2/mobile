@@ -1,14 +1,11 @@
-package com.unnamed.mobile.component.viewmodel
+package com.unnamed.mobile.model
 
-import android.os.SystemClock.sleep
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.unnamed.mobile.component.model.Dynamic
-import com.unnamed.mobile.component.model.Gray
-import com.unnamed.mobile.component.model.Robot
-import com.unnamed.mobile.component.model.Static
-import kotlinx.coroutines.Dispatchers
+import com.unnamed.mobile.model.model.Dynamic
+import com.unnamed.mobile.model.model.Robot
+import com.unnamed.mobile.model.model.Static
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 
